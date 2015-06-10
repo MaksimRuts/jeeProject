@@ -2,6 +2,8 @@ package by.gsu.epamlab.logic;
 
 import by.gsu.epamlab.beans.User;
 import by.gsu.epamlab.dao.IUserDao;
+import by.gsu.epamlab.exceptions.ExceptionConstants;
+import by.gsu.epamlab.exceptions.DataSourceException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,24 +21,25 @@ public class UserDaoHardcode implements IUserDao {
     }
 
     @Override
-    public void add(User user) {
-        users.put(user.getName(), user.getPassword());
+    public void add(User user) throws DataSourceException {
+        try {
+            get(user.getLogin());
+        } catch (DataSourceException e) {
+            users.put(user.getLogin(), user.getPassword());
+            return;
+        }
+        throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
     }
 
     @Override
-    public User get(String login, String password) {
+    public User get(String login) throws DataSourceException {
         if (users.containsKey(login)) {
             User user = new User();
-            user.setName(login);
+            user.setLogin(login);
             user.setPassword(users.get(login));
             return user;
         }
-        return null;
-    }
-
-    @Override
-    public boolean check(String login) {
-        return users.get(login) != null;
+        throw new DataSourceException(ExceptionConstants.Messages.ERROR_REQUEST_USER);
     }
 
     @Override
@@ -45,7 +48,6 @@ public class UserDaoHardcode implements IUserDao {
         for (Map.Entry<String, String> entry: users.entrySet()) {
             list.add(new User(entry.getKey(), entry.getValue()));
         }
-
         return list;
     }
 }
