@@ -39,7 +39,7 @@ public class UserDaoHardcode implements IUserDao {
             user.setPassword(users.get(login));
             return user;
         }
-        throw new DataSourceException(ExceptionConstants.Messages.ERROR_REQUEST_USER);
+        throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
     }
 
     @Override
