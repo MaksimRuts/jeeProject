@@ -44,4 +44,27 @@ public final class ConnectionManager {
         }
         return stmtPool.get(query);
     }
+
+    public static void close() {
+        for (Map.Entry<String, PreparedStatement> entry : stmtPool.entrySet()) {
+            if (entry.getValue() != null) {
+                try {
+                    entry.getValue().close();
+                } catch (SQLException e) {
+                    // todo
+                    e.printStackTrace();
+                }
+            }
+        }
+        stmtPool.clear();
+
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                // todo
+                e.printStackTrace();
+            }
+        }
+    }
 }

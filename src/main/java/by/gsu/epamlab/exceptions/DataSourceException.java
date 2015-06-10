@@ -9,10 +9,14 @@ public class DataSourceException extends Exception {
         this.message = message;
     }
 
+    public DataSourceException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     @Override
     public String toString() {
         return "DataSourceException{" +
                 "message='" + message + '\'' +
-                '}';
+                '}' + super.getCause();
     }
 }
