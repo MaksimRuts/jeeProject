@@ -45,7 +45,7 @@ public class UserDaoDB implements IUserDao {
             user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
             return user;
         } catch (SQLException e) {
-            throw new DataSourceException(ExceptionConstants.Messages.ERROR_REQUEST_USER);
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
         }
     }
 
