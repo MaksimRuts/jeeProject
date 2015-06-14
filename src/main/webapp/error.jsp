@@ -4,15 +4,17 @@
 <head>
     <title>Error page</title>
     <style>
-        <%@ include file="main.css"%>
+        <%@ include file="login.css"%>
     </style>
 </head>
 <body>
-    <div class="information">
-        <h3>Error</h3>
-        <c:out value="${errorMessage}"/>
-        <br/>
-        <a href="login.jsp">Return to login page</a>
+    <div class="registration_panel">
+        <p><b>Error</b></p>
+        <div class="registration_field">
+            <c:out value="${errorMessage}"/>
+            <br/>
+            <a href="login.jsp">Return to login page</a>
+        </div>
     </div>
 </body>
 </html>
