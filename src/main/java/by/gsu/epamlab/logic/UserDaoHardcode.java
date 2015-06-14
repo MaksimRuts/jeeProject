@@ -21,25 +21,30 @@ public class UserDaoHardcode implements IUserDao {
     }
 
     @Override
-    public void add(User user) throws DataSourceException {
-        try {
-            get(user.getLogin());
-        } catch (DataSourceException e) {
-            users.put(user.getLogin(), user.getPassword());
-            return;
-        }
-        throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
+    public boolean check(String login) {
+        return users.containsKey(login);
     }
 
     @Override
-    public User get(String login) throws DataSourceException {
-        if (users.containsKey(login)) {
+    public void create(User user) throws DataSourceException {
+        if (!check(user.getLogin())) {
+            users.put(user.getLogin(), user.getPassword());
+        } else {
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
+        }
+
+    }
+
+    @Override
+    public User get(String login, String password) throws DataSourceException {
+        if (users.containsKey(login) && users.get(login).equals(password)) {
             User user = new User();
             user.setLogin(login);
             user.setPassword(users.get(login));
             return user;
+        } else {
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
         }
-        throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
     }
 
     @Override

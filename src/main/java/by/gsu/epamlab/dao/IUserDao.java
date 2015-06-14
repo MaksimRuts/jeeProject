@@ -6,7 +6,8 @@ import by.gsu.epamlab.exceptions.DataSourceException;
 import java.util.List;
 
 public interface IUserDao {
-    void add(User user) throws DataSourceException;
-    User get(String login) throws DataSourceException;
+    boolean check(String login);
+    void create(User user) throws DataSourceException;
+    User get(String login, String password) throws DataSourceException;
     List<User> getAll();
 }

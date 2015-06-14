@@ -18,17 +18,17 @@ public class TestUserDao {
         System.out.println(Arrays.toString(daoImpl.getAll().toArray()));
 
         try {
-            System.out.println(daoImpl.get("qwe"));
+            System.out.println(daoImpl.get("qwe", "123"));
         } catch (DataSourceException e) {
             e.printStackTrace();
         }
         try {
-            daoImpl.add(u1);
+            daoImpl.create(u1);
         } catch (DataSourceException e) {
             System.err.println(e.toString());
         }
         try {
-            daoImpl.add(u2);
+            daoImpl.create(u2);
         } catch (DataSourceException e) {
             System.err.println(e.toString());
         }

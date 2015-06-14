@@ -13,6 +13,7 @@ public class DataBaseConstants {
     public static class Queries {
 
         public static final String SELECT_BY_LOGIN = "select * from users where login = ?";
+        public static final String SELECT_USER = "select * from users where login = ? and password = ?";
         public static final String INSERT_USER = "insert into users (login, password) values (?, ?)";
         public static final String SELECT_ALL_USERS = "select * from users";
     }

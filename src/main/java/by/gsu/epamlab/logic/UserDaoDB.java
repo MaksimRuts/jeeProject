@@ -16,28 +16,39 @@ import java.util.List;
 public class UserDaoDB implements IUserDao {
 
     @Override
-    public void add(User user) throws DataSourceException {
+    public boolean check(String login) {
+        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_BY_LOGIN);
         try {
-            get(user.getLogin());
-        } catch (DataSourceException e) {
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public void create(User user) throws DataSourceException {
+        if (!check(user.getLogin())) {
             PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.INSERT_USER);
             try {
                 stmt.setString(1, user.getLogin());
                 stmt.setString(2, user.getPassword());
                 stmt.executeUpdate();
-            } catch (SQLException sqlEx) {
+            } catch (SQLException e) {
                 throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING);
             }
-            return;
+        } else {
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
         }
-        throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
     }
 
     @Override
-    public User get(String login) throws DataSourceException {
-        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_BY_LOGIN);
+    public User get(String login, String password) throws DataSourceException {
+        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_USER);
         try {
             stmt.setString(1, login);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             User user = new User();
