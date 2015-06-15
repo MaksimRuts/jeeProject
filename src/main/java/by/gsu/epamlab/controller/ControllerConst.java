@@ -1,5 +1,7 @@
 package by.gsu.epamlab.controller;
 
+import by.gsu.epamlab.logic.UserDaoDB;
+
 public class ControllerConst {
     public static final String PAGE_FIELD_ACTION = "action";
     public static final String PAGE_FIELD_ACTION_LOGIN = "login_button";
@@ -19,4 +21,6 @@ public class ControllerConst {
     public static final String ERROR_REGISTRATION = "Registration error";
 
     public static final String MESSAGE_REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
+
+    public static final Class<UserDaoDB> USER_DAO_CLASS = UserDaoDB.class;
 }

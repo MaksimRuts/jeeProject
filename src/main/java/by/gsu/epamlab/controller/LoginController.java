@@ -3,7 +3,6 @@ package by.gsu.epamlab.controller;
 import by.gsu.epamlab.beans.User;
 import by.gsu.epamlab.dao.IUserDao;
 import by.gsu.epamlab.exceptions.DataSourceException;
-import by.gsu.epamlab.logic.UserDaoDB;
 import by.gsu.epamlab.logic.UserDaoFactory;
 
 import javax.servlet.ServletException;
@@ -30,7 +29,7 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter(ControllerConst.PAGE_FIELD_PASSWORD);
         String page;
 
-        IUserDao userDao = UserDaoFactory.getUserDao(UserDaoDB.class);
+        IUserDao userDao = UserDaoFactory.getUserDao(ControllerConst.USER_DAO_CLASS);
 
         if (ControllerConst.PAGE_FIELD_ACTION_LOGIN.equals(action)) {
             try {
