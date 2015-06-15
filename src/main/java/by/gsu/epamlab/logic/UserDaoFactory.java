@@ -7,7 +7,7 @@ public class UserDaoFactory {
     private static final Map<Class<?>, Object> map = new HashMap<Class<?>, Object>();
 
     static {
-        map.put(UserDaoHardcode.class, new UserDaoHardcode());
+        map.put(UserDaoMemory.class, new UserDaoMemory());
         map.put(UserDaoDB.class, new UserDaoDB());
     }
 

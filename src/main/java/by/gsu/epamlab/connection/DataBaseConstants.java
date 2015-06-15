@@ -5,9 +5,10 @@ public class DataBaseConstants {
 
         public static final String COLUMN_PASSWORD = "password";
         public static final String COLUMN_LOGIN = "login";
-        static final String DATABASE_URL = "jdbc:mysql://localhost/jee1";
-        static final String DATABASE_LOGIN = "root";
-        static final String DATABASE_PASSWORD = "";
+        public static final String DRIVER_URI = "com.mysql.jdbc.Driver";
+        public static final String DATABASE_URL = "jdbc:mysql://localhost/jee1";
+        public static final String DATABASE_LOGIN = "root";
+        public static final String DATABASE_PASSWORD = "";
     }
 
     public static class Queries {

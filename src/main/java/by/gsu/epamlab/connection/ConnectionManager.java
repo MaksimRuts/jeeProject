@@ -15,13 +15,15 @@ public final class ConnectionManager {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            connection = DriverManager.getConnection(DataBaseConstants.DataBase.DATABASE_URL, DataBaseConstants.DataBase.DATABASE_LOGIN, DataBaseConstants.DataBase.DATABASE_PASSWORD);
+            Class.forName(DataBaseConstants.DataBase.DRIVER_URI).newInstance();
+            connection = DriverManager.getConnection(DataBaseConstants.DataBase.DATABASE_URL,
+                    DataBaseConstants.DataBase.DATABASE_LOGIN,
+                    DataBaseConstants.DataBase.DATABASE_PASSWORD);
         } catch (ReflectiveOperationException e) {
-            // TODO
+            // ignore exceptions
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO
+            // ignore exceptions
             e.printStackTrace();
         }
     }
@@ -38,7 +40,7 @@ public final class ConnectionManager {
             try {
                 stmtPool.put(query, getConnection().prepareStatement(query));
             } catch (SQLException e) {
-                // TODO
+                // ignore exceptions
                 e.printStackTrace();
             }
         }
@@ -51,7 +53,7 @@ public final class ConnectionManager {
                 try {
                     entry.getValue().close();
                 } catch (SQLException e) {
-                    // todo
+                    // ignore exceptions
                     e.printStackTrace();
                 }
             }
@@ -62,7 +64,7 @@ public final class ConnectionManager {
             try {
                 connection.close();
             } catch (SQLException e) {
-                // todo
+                // ignore exceptions
                 e.printStackTrace();
             }
         }

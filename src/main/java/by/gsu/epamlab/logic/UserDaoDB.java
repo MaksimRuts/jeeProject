@@ -36,7 +36,7 @@ public class UserDaoDB implements IUserDao {
                 stmt.setString(2, user.getPassword());
                 stmt.executeUpdate();
             } catch (SQLException e) {
-                throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING);
+                throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING, e);
             }
         } else {
             throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
@@ -56,7 +56,7 @@ public class UserDaoDB implements IUserDao {
             user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
             return user;
         } catch (SQLException e) {
-            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST, e);
         }
     }
 

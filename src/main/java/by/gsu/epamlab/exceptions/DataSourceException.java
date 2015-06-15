@@ -1,8 +1,6 @@
 package by.gsu.epamlab.exceptions;
 
 public class DataSourceException extends Exception {
-    // todo
-
     private String message;
 
     public DataSourceException(String message) {
@@ -10,13 +8,19 @@ public class DataSourceException extends Exception {
     }
 
     public DataSourceException(String message, Throwable cause) {
-        super(message, cause);
+        super(cause);
+        this.message = message;
     }
 
     @Override
     public String toString() {
-        return "DataSourceException{" +
-                "message='" + message + '\'' +
-                '}' + super.getCause();
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
+        builder.append('{');
+        builder.append("message='").append(message);
+        if (super.getCause() != null) {
+            builder.append("; cause = ").append(super.getCause());
+        }
+        builder.append('}');
+        return builder.toString();
     }
 }

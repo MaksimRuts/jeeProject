@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserDaoHardcode implements IUserDao {
+public class UserDaoMemory implements IUserDao {
     private static final Map<String, User> users;
 
     static {

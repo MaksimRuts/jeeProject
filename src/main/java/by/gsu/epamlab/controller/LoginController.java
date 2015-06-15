@@ -25,14 +25,14 @@ public class LoginController extends HttpServlet {
     }
 
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(ControllerConst.PAGE_ACTION);
+        String action = req.getParameter(ControllerConst.PAGE_FIELD_ACTION);
         String login = req.getParameter(ControllerConst.PAGE_FIELD_LOGIN);
         String password = req.getParameter(ControllerConst.PAGE_FIELD_PASSWORD);
         String page;
 
         IUserDao userDao = UserDaoFactory.getUserDao(UserDaoDB.class);
 
-        if (ControllerConst.PAGE_ACTION_LOGIN.equals(action)) {
+        if (ControllerConst.PAGE_FIELD_ACTION_LOGIN.equals(action)) {
             try {
                 User user = userDao.get(login, password);
                 req.setAttribute(ControllerConst.PAGE_FIELD_USERNAME, user.getLogin());
@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
             }
 
 
-        } else if (ControllerConst.PAGE_ACTION_REGISTER.equals(action)) {
+        } else if (ControllerConst.PAGE_FIELD_ACTION_REGISTER.equals(action)) {
             try {
                 userDao.create(new User(login, password));
                 req.setAttribute(ControllerConst.PAGE_FIELD_INFO_MESSAGE, ControllerConst.MESSAGE_REGISTRATION_SUCCESSFULLY_COMPLETED);
