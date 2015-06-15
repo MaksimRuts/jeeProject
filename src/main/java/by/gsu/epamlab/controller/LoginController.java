@@ -1,6 +1,7 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.beans.User;
+import by.gsu.epamlab.connection.ConnectionManager;
 import by.gsu.epamlab.dao.IUserDao;
 import by.gsu.epamlab.exceptions.DataSourceException;
 import by.gsu.epamlab.logic.UserDaoFactory;
@@ -57,5 +58,11 @@ public class LoginController extends HttpServlet {
         }
 
         getServletContext().getRequestDispatcher(page).forward(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        ConnectionManager.close();
     }
 }
