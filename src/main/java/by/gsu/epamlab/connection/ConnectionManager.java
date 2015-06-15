@@ -20,11 +20,9 @@ public final class ConnectionManager {
                     DataBaseConstants.DataBase.DATABASE_LOGIN,
                     DataBaseConstants.DataBase.DATABASE_PASSWORD);
         } catch (ReflectiveOperationException e) {
-            // ignore exceptions
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (SQLException e) {
-            // ignore exceptions
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -40,32 +38,31 @@ public final class ConnectionManager {
             try {
                 stmtPool.put(query, getConnection().prepareStatement(query));
             } catch (SQLException e) {
-                // ignore exceptions
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return stmtPool.get(query);
     }
 
     public static void close() {
-        for (Map.Entry<String, PreparedStatement> entry : stmtPool.entrySet()) {
-            if (entry.getValue() != null) {
-                try {
-                    entry.getValue().close();
-                } catch (SQLException e) {
-                    // ignore exceptions
-                    e.printStackTrace();
+        try {
+            for (Map.Entry<String, PreparedStatement> entry : stmtPool.entrySet()) {
+                if (entry.getValue() != null) {
+
+                        entry.getValue().close();
+
                 }
             }
-        }
-        stmtPool.clear();
-
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // ignore exceptions
-                e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            stmtPool.clear();
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

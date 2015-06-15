@@ -19,6 +19,8 @@ public class ControllerConst {
 
     public static final String ERROR_INVALID_LOGIN_OR_PASSWORD = "Invalid login or password";
     public static final String ERROR_REGISTRATION = "Registration error";
+    public static final String ERROR_UNSUPPORTED = "Unsupported error. Don't panic and contact to developers";
+
 
     public static final String MESSAGE_REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
 

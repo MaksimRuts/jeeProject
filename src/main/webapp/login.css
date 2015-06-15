@@ -1,0 +1,46 @@
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+p {
+    text-align: center;
+    text-shadow: 2px 2px 0 #ccc;
+    font-size: 1.3em;
+}
+
+.registration_panel {
+    position: absolute;
+    top: 150px;
+    width: 250px;
+    margin: 0 40% 0 40%;
+}
+
+.registration_field {
+    background-color: #cecece;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px;
+    text-align: center;
+}
+
+.registration_error {
+    color: red;
+    text-align: center;
+}
+
+td {
+    padding: 3px;
+}
+
+input {
+    width: 96%;
+}
+
+button {
+    width: 100%;
+}
