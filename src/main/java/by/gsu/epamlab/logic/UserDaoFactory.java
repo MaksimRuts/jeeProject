@@ -12,6 +12,10 @@ public class UserDaoFactory {
     }
 
     public static <T> T getUserDao(Class<T> type) {
-        return type.cast(map.get(type));
+        if (map.containsKey(type)) {
+            return type.cast(map.get(type));
+        } else {
+            throw new IllegalArgumentException(type.getName());
+        }
     }
 }
