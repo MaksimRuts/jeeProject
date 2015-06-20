@@ -1,4 +1,4 @@
-package by.gsu.epamlab.connection;
+package by.gsu.epamlab.model.connection;
 
 public class DataBaseConstants {
     public static class DataBase {
@@ -6,9 +6,10 @@ public class DataBaseConstants {
         public static final String COLUMN_PASSWORD = "password";
         public static final String COLUMN_LOGIN = "login";
         public static final String DRIVER_URI = "com.mysql.jdbc.Driver";
-        public static final String DATABASE_URL = "jdbc:mysql://localhost/jee1";
+        public static final String DATABASE_URL = "jdbc:mysql://localhost/jee2";
         public static final String DATABASE_LOGIN = "root";
         public static final String DATABASE_PASSWORD = "";
+        public static final String COLUMN_ID = "id";
     }
 
     public static class Queries {

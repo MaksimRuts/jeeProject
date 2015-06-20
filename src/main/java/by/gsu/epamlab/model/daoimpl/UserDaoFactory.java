@@ -1,4 +1,4 @@
-package by.gsu.epamlab.logic;
+package by.gsu.epamlab.model.daoimpl;
 
 import java.util.HashMap;
 import java.util.Map;

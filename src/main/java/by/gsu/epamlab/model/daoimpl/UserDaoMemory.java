@@ -1,9 +1,9 @@
-package by.gsu.epamlab.logic;
+package by.gsu.epamlab.model.daoimpl;
 
-import by.gsu.epamlab.beans.User;
-import by.gsu.epamlab.dao.IUserDao;
-import by.gsu.epamlab.exceptions.ExceptionConstants;
-import by.gsu.epamlab.exceptions.DataSourceException;
+import by.gsu.epamlab.model.beans.User;
+import by.gsu.epamlab.model.dao.IUserDao;
+import by.gsu.epamlab.model.exceptions.ExceptionConstants;
+import by.gsu.epamlab.model.exceptions.DataSourceException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,12 +12,17 @@ import java.util.Map;
 
 public class UserDaoMemory implements IUserDao {
     private static final Map<String, User> users;
+    private static int id = 1;
 
     static {
         users = new HashMap<String, User>();
-        users.put("qwe", new User("qwe", "123"));
-        users.put("asd", new User("asd", "123"));
-        users.put("zxc", new User("zxc", "123"));
+        users.put("qwe", new User(getId(), "qwe", "123"));
+        users.put("asd", new User(getId(), "asd", "123"));
+        users.put("zxc", new User(getId(), "zxc", "123"));
+    }
+
+    private static int getId() {
+        return id++;
     }
 
     @Override
@@ -28,6 +33,7 @@ public class UserDaoMemory implements IUserDao {
     @Override
     public void create(User user) throws DataSourceException {
         if (!check(user.getLogin())) {
+
             users.put(user.getLogin(), user);
         } else {
             throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
@@ -36,7 +42,7 @@ public class UserDaoMemory implements IUserDao {
 
     @Override
     public User get(String login, String password) throws DataSourceException {
-        if (users.containsKey(login) && users.get(login).equals(password)) {
+        if (users.containsKey(login) && users.get(login).getPassword().equals(password)) {
             return users.get(login);
         } else {
             throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);

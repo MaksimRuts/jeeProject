@@ -1,4 +1,4 @@
-package by.gsu.epamlab.connection;
+package by.gsu.epamlab.model.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

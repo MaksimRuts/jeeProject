@@ -10,23 +10,23 @@
 </head>
 <body>
     <div class="registration_panel">
-        <p><b>Login to system</b></p>
+        <h3>Login to system</h3>
         <div class="registration_field">
             <form action="login" method="post">
                 <table>
                     <tr>
                         <td><label for="login_field">Login:</label></td>
-                        <td><input type="text" name="<%= ControllerConst.PAGE_FIELD_LOGIN %>" id="login_field" value="" required="required"><br></td>
+                        <td><input class="login_input" type="text" name="<%= ControllerConst.Fields.LOGIN %>" id="login_field" value="" required="required"><br></td>
                     </tr>
                     <tr>
                         <td><label for="password_field">Password:</label></td>
-                        <td><input type="password" name="<%= ControllerConst.PAGE_FIELD_PASSWORD %>" id="password_field" value="" required="required"><br></td>
+                        <td><input class="login_input" type="password" name="<%= ControllerConst.Fields.PASSWORD %>" id="password_field" value="" required="required"><br></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><button name="<%= ControllerConst.PAGE_FIELD_ACTION %>" value="<%= ControllerConst.PAGE_FIELD_ACTION_LOGIN %>">Login</button></td>
+                        <td colspan="2"><button name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.LOGIN %>">Login</button></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><button name="<%= ControllerConst.PAGE_FIELD_ACTION %>" value="<%= ControllerConst.PAGE_FIELD_ACTION_REGISTER %>">Register</button></td>
+                        <td colspan="2"><button name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.REGISTER %>">Register</button></td>
                     </tr>
                 </table>
             </form>

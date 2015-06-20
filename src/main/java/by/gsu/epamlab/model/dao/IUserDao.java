@@ -1,7 +1,7 @@
-package by.gsu.epamlab.dao;
+package by.gsu.epamlab.model.dao;
 
-import by.gsu.epamlab.beans.User;
-import by.gsu.epamlab.exceptions.DataSourceException;
+import by.gsu.epamlab.model.beans.User;
+import by.gsu.epamlab.model.exceptions.DataSourceException;
 
 import java.util.List;
 

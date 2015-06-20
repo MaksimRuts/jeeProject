@@ -1,68 +1,57 @@
 package by.gsu.epamlab.controller;
 
-import by.gsu.epamlab.beans.User;
-import by.gsu.epamlab.connection.ConnectionManager;
-import by.gsu.epamlab.dao.IUserDao;
-import by.gsu.epamlab.exceptions.DataSourceException;
-import by.gsu.epamlab.logic.UserDaoFactory;
+import by.gsu.epamlab.model.beans.User;
+import by.gsu.epamlab.model.dao.IUserDao;
+import by.gsu.epamlab.model.daoimpl.UserDaoFactory;
+import by.gsu.epamlab.model.exceptions.DataSourceException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LoginController extends HttpServlet {
-
+public class LoginController extends AbstractController {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        performLogic(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        performLogic(req, resp);
-    }
-
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(ControllerConst.PAGE_FIELD_ACTION);
-        String login = req.getParameter(ControllerConst.PAGE_FIELD_LOGIN);
-        String password = req.getParameter(ControllerConst.PAGE_FIELD_PASSWORD);
-        String page;
+        String action = req.getParameter(ControllerConst.Actions.ACTION);
+        String login = req.getParameter(ControllerConst.Fields.LOGIN);
+        String password = req.getParameter(ControllerConst.Fields.PASSWORD);
 
-        IUserDao userDao = UserDaoFactory.getUserDao(ControllerConst.USER_DAO_CLASS);
+        IUserDao userDao = UserDaoFactory.getUserDao(ControllerConst.Factories.USER_DAO_CLASS);
 
-        if (ControllerConst.PAGE_FIELD_ACTION_LOGIN.equals(action)) {
+        if (ControllerConst.Actions.LOGIN.equals(action)) {
             try {
                 User user = userDao.get(login, password);
-                req.setAttribute(ControllerConst.PAGE_FIELD_USERNAME, user.getLogin());
-                page = ControllerConst.PAGE_MAIN;
+                req.getSession().setAttribute("user", user);
+                jumpTo(ControllerConst.Controllers.TASKS, req, resp);
             } catch (DataSourceException e) {
-                req.setAttribute(ControllerConst.PAGE_FIELD_ERROR_MESSAGE, ControllerConst.ERROR_INVALID_LOGIN_OR_PASSWORD);
-                page = ControllerConst.PAGE_ERROR;
+                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD);
+                jumpTo(ControllerConst.Pages.ERROR, req, resp);
             }
 
 
-        } else if (ControllerConst.PAGE_FIELD_ACTION_REGISTER.equals(action)) {
+        } else if (ControllerConst.Actions.REGISTER.equals(action)) {
             try {
                 userDao.create(new User(login, password));
-                req.setAttribute(ControllerConst.PAGE_FIELD_INFO_MESSAGE, ControllerConst.MESSAGE_REGISTRATION_SUCCESSFULLY_COMPLETED);
-                req.setAttribute(ControllerConst.PAGE_FIELD_USERNAME, login);
-                page = ControllerConst.PAGE_MAIN;
+                req.setAttribute(ControllerConst.Fields.INFO_MESSAGE, ControllerConst.Messages.REGISTRATION_SUCCESSFULLY_COMPLETED);
+                req.setAttribute(ControllerConst.Fields.USERNAME, login);
+
+                User user = userDao.get(login, password);
+                req.getSession().setAttribute("user", user);
+                jumpTo(ControllerConst.Pages.TASKS, req, resp);
             } catch (DataSourceException e) {
-                req.setAttribute(ControllerConst.PAGE_FIELD_ERROR_MESSAGE, ControllerConst.ERROR_REGISTRATION);
-                page = ControllerConst.PAGE_ERROR;
+                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.REGISTRATION);
+                jumpTo(ControllerConst.Pages.ERROR, req, resp);
             }
         } else {
-            page = ControllerConst.PAGE_LOGIN;
+            jumpTo(ControllerConst.Pages.LOGIN, req, resp);
         }
-
-        getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-        ConnectionManager.close();
-    }
+//    @Override
+//    public void destroy() {
+//        super.destroy();
+//        // TODO подумать где лучше закрыть соединение, либо создать пулл подключений
+//        ConnectionManager.close();
+//    }
 }

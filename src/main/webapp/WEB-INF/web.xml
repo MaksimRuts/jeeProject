@@ -5,19 +5,40 @@
          version="3.1">
 
     <servlet>
-        <display-name>LoginController</display-name>
-        <servlet-name>LoginController</servlet-name>
+        <display-name>Login</display-name>
+        <servlet-name>Login</servlet-name>
         <servlet-class>by.gsu.epamlab.controller.LoginController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
+        <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <display-name>Tasks</display-name>
+        <servlet-name>Tasks</servlet-name>
+        <servlet-class>by.gsu.epamlab.controller.TasksController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Tasks</servlet-name>
+        <url-pattern>/tasks</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>by.gsu.epamlab.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+
     <welcome-file-list>
         <welcome-file>login</welcome-file>
     </welcome-file-list>
-    <error-page>
-        <exception-type>java.lang.Throwable</exception-type>
-        <location>/error.jsp</location>
-    </error-page>
+    <!--<error-page>-->
+        <!--<exception-type>java.lang.Throwable</exception-type>-->
+        <!--<location>/error.jsp</location>-->
+    <!--</error-page>-->
 </web-app>

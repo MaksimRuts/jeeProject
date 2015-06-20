@@ -1,4 +1,4 @@
-package by.gsu.epamlab.beans;
+package by.gsu.epamlab.model.beans;
 
 public class User {
     private int id;
@@ -9,6 +9,11 @@ public class User {
     }
 
     public User(String login, String password) {
+        this(0, login, password);
+    }
+
+    public User(int id, String login, String password) {
+        this.id = id;
         this.login = login;
         this.password = password;
     }

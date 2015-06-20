@@ -1,17 +1,17 @@
 package by.gsu.epamlab.testing;
 
-import by.gsu.epamlab.beans.User;
-import by.gsu.epamlab.connection.ConnectionManager;
-import by.gsu.epamlab.dao.IUserDao;
-import by.gsu.epamlab.exceptions.DataSourceException;
-import by.gsu.epamlab.logic.UserDaoDB;
-import by.gsu.epamlab.logic.UserDaoFactory;
+import by.gsu.epamlab.model.beans.User;
+import by.gsu.epamlab.model.connection.ConnectionManager;
+import by.gsu.epamlab.model.dao.IUserDao;
+import by.gsu.epamlab.model.daoimpl.UserDaoFactory;
+import by.gsu.epamlab.model.daoimpl.UserDaoMemory;
+import by.gsu.epamlab.model.exceptions.DataSourceException;
 
 import java.util.Arrays;
 
 public class TestUserDao {
     public static void main(String[] args) {
-        IUserDao daoImpl = UserDaoFactory.getUserDao(UserDaoDB.class);
+        IUserDao daoImpl = UserDaoFactory.getUserDao(UserDaoMemory.class);
         User u1 = new User("qaz", "147");
         User u2 = new User("qwe", "123");
 
@@ -22,15 +22,16 @@ public class TestUserDao {
         } catch (DataSourceException e) {
             e.printStackTrace();
         }
+
         try {
             daoImpl.create(u1);
         } catch (DataSourceException e) {
-            System.err.println(e.toString());
+            e.printStackTrace();
         }
         try {
             daoImpl.create(u2);
         } catch (DataSourceException e) {
-            System.err.println(e.toString());
+            e.printStackTrace();
         }
 
         System.out.println(Arrays.toString(daoImpl.getAll().toArray()));
