@@ -33,16 +33,27 @@ public class TasksController extends AbstractController {
 //            taskType = TaskTypes.TODAY;
 //        }
 
-        req.setAttribute("username", user.getLogin());
+        switch (taskType) {
+
+            case TODAY:
+            case TOMORROW:
+                req.setAttribute("withDate", false);
+                break;
+            case SOMEDAY:
+            case FIXED:
+            case RECYCLE_BIN:
+                req.setAttribute("withDate", true);
+                break;
+        }
+
+        req.setAttribute(ControllerConst.Fields.USERNAME, user.getLogin());
         // TODO
         INoteDao noteDao = new NoteDaoMemory();
 
         List<Note> list = noteDao.getAll(user.getId());
         req.setAttribute("notesList", list);
         req.setAttribute("notesIsEmpty", list.isEmpty());
-        req.setAttribute("withDate", false);
         req.setAttribute("taskType", taskType.getValue());
-
 
         jumpTo(ControllerConst.Pages.TASKS, req, resp);
     }

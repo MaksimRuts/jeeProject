@@ -22,14 +22,12 @@ public class LoginController extends AbstractController {
         if (ControllerConst.Actions.LOGIN.equals(action)) {
             try {
                 User user = userDao.get(login, password);
-                req.getSession().setAttribute("user", user);
+                req.getSession(true).setAttribute("user", user);
                 jumpTo(ControllerConst.Controllers.TASKS, req, resp);
             } catch (DataSourceException e) {
                 req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD);
                 jumpTo(ControllerConst.Pages.ERROR, req, resp);
             }
-
-
         } else if (ControllerConst.Actions.REGISTER.equals(action)) {
             try {
                 userDao.create(new User(login, password));
@@ -37,7 +35,7 @@ public class LoginController extends AbstractController {
                 req.setAttribute(ControllerConst.Fields.USERNAME, login);
 
                 User user = userDao.get(login, password);
-                req.getSession().setAttribute("user", user);
+                req.getSession(true).setAttribute("user", user);
                 jumpTo(ControllerConst.Pages.TASKS, req, resp);
             } catch (DataSourceException e) {
                 req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.REGISTRATION);

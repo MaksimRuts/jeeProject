@@ -38,7 +38,10 @@
 
         <h4>${taskType}</h4>
         <c:choose>
-            <c:when test="${!notesIsEmpty}">
+            <c:when test="${notesIsEmpty}">
+                <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
+            </c:when>
+            <c:otherwise>
                 <table border="1">
                     <tr>
                         <th>Select</th>
@@ -60,9 +63,6 @@
                         <td>File management</td>
                     </c:forEach>
                 </table>
-            </c:when>
-            <c:otherwise>
-                <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
             </c:otherwise>
         </c:choose>
         <br/>
