@@ -1,4 +1,4 @@
-package by.gsu.epamlab.model.daoimpl;
+package by.gsu.epamlab.model.daoimpl.database;
 
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.connection.ConnectionManager;
@@ -20,8 +20,7 @@ public class UserDaoDB implements IUserDao {
         PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_BY_LOGIN);
         try {
             stmt.setString(1, login);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            return stmt.executeQuery().next();
         } catch (SQLException e) {
             return false;
         }
@@ -54,7 +53,8 @@ public class UserDaoDB implements IUserDao {
             User user = new User();
             user.setLogin(login);
             user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
-            user.setId(rs.getInt(DataBaseConstants.DataBase.COLUMN_ID));
+            user.setId(rs.getInt(DataBaseConstants.TableColumns.ID));
+            rs.close();
             return user;
         } catch (SQLException e) {
             throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST, e);
@@ -71,9 +71,10 @@ public class UserDaoDB implements IUserDao {
                 User user = new User();
                 user.setLogin(rs.getString(DataBaseConstants.DataBase.COLUMN_LOGIN));
                 user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
-                user.setId(rs.getInt(DataBaseConstants.DataBase.COLUMN_ID));
+                user.setId(rs.getInt(DataBaseConstants.TableColumns.ID));
                 list.add(user);
             }
+            rs.close();
             return list;
         } catch (SQLException e) {
             return list;

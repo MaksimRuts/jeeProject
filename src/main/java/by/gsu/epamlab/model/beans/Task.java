@@ -3,7 +3,7 @@ package by.gsu.epamlab.model.beans;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Note {
+public class Task {
     private int id;
     private String name;
     private String description;
@@ -13,7 +13,7 @@ public class Note {
     private boolean isDeleted;
     private int userId;
 
-    public Note() {
+    public Task() {
     }
 
     public int getId() {

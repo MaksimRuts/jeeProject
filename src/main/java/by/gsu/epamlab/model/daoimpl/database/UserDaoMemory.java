@@ -1,4 +1,4 @@
-package by.gsu.epamlab.model.daoimpl;
+package by.gsu.epamlab.model.daoimpl.database;
 
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.dao.IUserDao;

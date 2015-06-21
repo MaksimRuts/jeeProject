@@ -3,15 +3,16 @@ package by.gsu.epamlab.testing;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.connection.ConnectionManager;
 import by.gsu.epamlab.model.dao.IUserDao;
-import by.gsu.epamlab.model.daoimpl.UserDaoFactory;
-import by.gsu.epamlab.model.daoimpl.UserDaoMemory;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
+import by.gsu.epamlab.model.factories.AbstractDaoFactory;
+import by.gsu.epamlab.model.factories.MemoryDaoFactory;
 
 import java.util.Arrays;
 
 public class TestUserDao {
     public static void main(String[] args) {
-        IUserDao daoImpl = UserDaoFactory.getUserDao(UserDaoMemory.class);
+        IUserDao daoImpl = AbstractDaoFactory.getFactory(MemoryDaoFactory.class).getUserDao();
+
         User u1 = new User("qaz", "147");
         User u2 = new User("qwe", "123");
 

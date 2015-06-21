@@ -1,9 +1,11 @@
 package by.gsu.epamlab.controller;
 
-import by.gsu.epamlab.model.daoimpl.NoteDaoMemory;
-import by.gsu.epamlab.model.daoimpl.UserDaoMemory;
+import by.gsu.epamlab.model.factories.AbstractDaoFactory;
+import by.gsu.epamlab.model.factories.MemoryDaoFactory;
 
 public class ControllerConst {
+    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
+
     public static class Pages {
         public static final String ERROR = "/error.jsp";
         public static final String LOGIN = "/login.jsp";
@@ -22,6 +24,10 @@ public class ControllerConst {
         public static final String USERNAME = "username";
         public static final String ERROR_MESSAGE = "errorMessage";
         public static final String INFO_MESSAGE = "infoMessage";
+        public static final String USER = "user";
+        public static final String TASK_TYPE = "taskType";
+        public static final String BUTTON_FIX = "buttonFix";
+        public static final String WITH_DATE = "withDate";
     }
 
     public static class Actions {
@@ -40,25 +46,5 @@ public class ControllerConst {
         public static final String NOTES_LIST_EMPTY = "Your notes list is empty";
         public static final String REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
     }
-
-    public static class Factories {
-        public static final Class<UserDaoMemory> USER_DAO_CLASS = UserDaoMemory.class;
-        public static final Class<NoteDaoMemory> NOTES_DAO_CLASS = NoteDaoMemory.class;
-    }
-
-//    public static enum TaskTypes {
-//        TODAY("Today"), TOMORROW("Tomorrow"), SOMEDAY("Someday"), FIXED("Fixed"), RECYCLE_BIN("Recycle Bin");
-//
-//        private String value;
-//
-//        private TaskTypes(String value) {
-//            this.value = value;
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return value;
-//        }
-//    }
 }
 
