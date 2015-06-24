@@ -9,6 +9,6 @@ public class LogoutController extends AbstractController {
     @Override
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().invalidate();
-        jumpTo(ControllerConst.Controllers.LOGIN, req, resp);
+        redirectTo(ControllerConst.Controllers.LOGIN, req, resp);
     }
 }

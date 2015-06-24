@@ -2,7 +2,7 @@ package by.gsu.epamlab.model.factories;
 
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.dao.IUserDao;
-import by.gsu.epamlab.model.daoimpl.memory.TaskDaoDB;
+import by.gsu.epamlab.model.daoimpl.database.TaskDaoDB;
 import by.gsu.epamlab.model.daoimpl.database.UserDaoDB;
 
 public class DataBaseDaoFactory extends AbstractDaoFactory {

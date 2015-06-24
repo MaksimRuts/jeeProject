@@ -26,7 +26,7 @@
                         <td colspan="2"><button name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.LOGIN %>">Login</button></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><button name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.REGISTER %>">Register</button></td>
+                        <td colspan="2"><a href="<%= ControllerConst.Pages.REGISTRATION %>">Register new user</a></td>
                     </tr>
                 </table>
             </form>

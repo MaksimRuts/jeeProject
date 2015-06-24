@@ -7,6 +7,7 @@ import by.gsu.epamlab.model.dao.IUserDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
 import by.gsu.epamlab.model.exceptions.ExceptionConstants;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,68 +17,99 @@ import java.util.List;
 public class UserDaoDB implements IUserDao {
 
     @Override
-    public boolean check(String login) {
-        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_BY_LOGIN);
-        try {
-            stmt.setString(1, login);
-            return stmt.executeQuery().next();
-        } catch (SQLException e) {
-            return false;
-        }
-    }
+    public User create(User user, String password) throws DataSourceException {
+        Connection con = ConnectionManager.getConnection();
+        PreparedStatement stmtGet = null;
+        PreparedStatement stmtSet = null;
+        ResultSet rs = null;
 
-    @Override
-    public void create(User user) throws DataSourceException {
-        if (!check(user.getLogin())) {
-            PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.INSERT_USER);
-            try {
-                stmt.setString(1, user.getLogin());
-                stmt.setString(2, user.getPassword());
-                stmt.executeUpdate();
-            } catch (SQLException e) {
-                throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING, e);
+        try {
+            stmtGet = con.prepareStatement(DataBaseConstants.Queries.SELECT_USER_BY_LOGIN);
+            stmtSet = con.prepareStatement(DataBaseConstants.Queries.INSERT_USER);
+
+            stmtGet.setString(1, user.getLogin());
+            rs = stmtGet.executeQuery();
+            if (!rs.next()) {
+                stmtSet.setString(1, user.getLogin());
+                stmtSet.setString(2, password);
+                stmtSet.setString(3, user.getName());
+                synchronized (stmtSet) {
+                    stmtSet.executeUpdate();
+                }
+                rs = stmtGet.executeQuery();
+                if (rs.next()) {
+                    User newUser = new User();
+                    newUser.setLogin(rs.getString(DataBaseConstants.TableColumns.LOGIN));
+                    newUser.setName(rs.getString(DataBaseConstants.TableColumns.NAME));
+                    newUser.setId(rs.getInt(DataBaseConstants.TableColumns.ID));
+                    return new User(rs.getInt(DataBaseConstants.TableColumns.ID),
+                            rs.getString(DataBaseConstants.TableColumns.LOGIN),
+                            rs.getString(DataBaseConstants.TableColumns.NAME));
+                } else {
+                    throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING);
+                }
+            } else {
+                throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
             }
-        } else {
-            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_ALREADY_PRESENT);
+        } catch (SQLException e) {
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_CREATING, e);
+        } finally {
+            ConnectionManager.close(rs);
+            ConnectionManager.close(stmtSet, stmtGet);
+            ConnectionManager.close(con);
         }
     }
 
     @Override
-    public User get(String login, String password) throws DataSourceException {
-        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_USER);
+    public User read(String login, String password) throws DataSourceException {
+        Connection con = ConnectionManager.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
+            stmt = con.prepareStatement(DataBaseConstants.Queries.SELECT_USER_BY_LOGIN);
             stmt.setString(1, login);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-            rs.next();
-            User user = new User();
-            user.setLogin(login);
-            user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
-            user.setId(rs.getInt(DataBaseConstants.TableColumns.ID));
-            rs.close();
-            return user;
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                if (password.equals(rs.getString(DataBaseConstants.TableColumns.PASSWORD))) {
+                    return new User(rs.getInt(DataBaseConstants.TableColumns.ID),
+                            rs.getString(DataBaseConstants.TableColumns.LOGIN),
+                            rs.getString(DataBaseConstants.TableColumns.NAME));
+                }
+            }
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST);
         } catch (SQLException e) {
             throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST, e);
+        } finally {
+            ConnectionManager.close(rs);
+            ConnectionManager.close(stmt);
+            ConnectionManager.close(con);
         }
     }
 
     @Override
     public List<User> getAll() {
         List<User> list = new ArrayList<User>();
-        PreparedStatement stmt = ConnectionManager.getPreparedStatement(DataBaseConstants.Queries.SELECT_ALL_USERS);
+        Connection con = ConnectionManager.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
-            ResultSet rs = stmt.executeQuery();
+            stmt = con.prepareStatement(DataBaseConstants.Queries.SELECT_ALL_USERS);
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setLogin(rs.getString(DataBaseConstants.DataBase.COLUMN_LOGIN));
-                user.setPassword(rs.getString(DataBaseConstants.DataBase.COLUMN_PASSWORD));
                 user.setId(rs.getInt(DataBaseConstants.TableColumns.ID));
+                user.setLogin(rs.getString(DataBaseConstants.TableColumns.LOGIN));
+                user.setName(rs.getString(DataBaseConstants.TableColumns.NAME));
                 list.add(user);
             }
             rs.close();
             return list;
         } catch (SQLException e) {
-            return list;
+            throw new DataSourceException(ExceptionConstants.Messages.ERROR_USER_REQUEST, e);
+        } finally {
+            ConnectionManager.close(rs);
+            ConnectionManager.close(stmt);
+            ConnectionManager.close(con);
         }
     }
 }

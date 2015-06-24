@@ -9,5 +9,6 @@ public class ExceptionConstants {
         public static final String RECORD_NOT_EXIST = "Record doesn't exist";
         public static final String RECORD_UPDATE_ERROR = "Record update error";
         public static final String RECORD_DELETE_ERROR = "Record delete error";
+        public static final String RECORD_READING_ERROR = "Record reading error";
     }
 }

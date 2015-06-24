@@ -1,5 +1,6 @@
 package by.gsu.epamlab.model.daoimpl.memory;
 
+import by.gsu.epamlab.controller.TaskTypes;
 import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
@@ -67,6 +68,11 @@ public class TaskDaoMemory implements ITaskDao {
     public List<Task> getAll(int userId) {
         return notes.containsKey(userId) ?
                 new ArrayList<Task>(notes.get(userId).values()) : new ArrayList<Task>();
+    }
+
+    @Override
+    public List<Task> getAll(int userId, TaskTypes taskType) {
+        return taskType.thinOutTasks(getAll(userId));
     }
 
     static {

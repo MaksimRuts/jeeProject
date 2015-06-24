@@ -1,27 +1,13 @@
 package by.gsu.epamlab.model.connection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;
 
 public final class ConnectionManager {
-
-    private static Connection connection;
-
-    private static Map<String, PreparedStatement> stmtPool = new HashMap<String, PreparedStatement>();
 
     static {
         try {
             Class.forName(DataBaseConstants.DataBase.DRIVER_URI).newInstance();
-            connection = DriverManager.getConnection(DataBaseConstants.DataBase.DATABASE_URL,
-                    DataBaseConstants.DataBase.DATABASE_LOGIN,
-                    DataBaseConstants.DataBase.DATABASE_PASSWORD);
         } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -30,38 +16,46 @@ public final class ConnectionManager {
     }
 
     public static Connection getConnection() {
-        return connection;
+        try {
+            return DriverManager.getConnection(DataBaseConstants.DataBase.DATABASE_URL,
+                    DataBaseConstants.DataBase.DATABASE_LOGIN,
+                    DataBaseConstants.DataBase.DATABASE_PASSWORD);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static PreparedStatement getPreparedStatement(String query) {
-        if (!stmtPool.containsKey(query)) {
+    public static void close(Connection connection) {
+        if (connection != null) {
             try {
-                stmtPool.put(query, getConnection().prepareStatement(query));
+                connection.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        return stmtPool.get(query);
     }
 
-    public static void close() {
-        try {
-            for (Map.Entry<String, PreparedStatement> entry : stmtPool.entrySet()) {
-                if (entry.getValue() != null) {
-
-                        entry.getValue().close();
-
+    public static void close(ResultSet... sets) {
+        for (ResultSet resultSet : sets) {
+            if (resultSet != null) {
+                try {
+                    if (!resultSet.isClosed()) {
+                        resultSet.close();
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            stmtPool.clear();
-            if (connection != null) {
+        }
+    }
+
+    public static void close(PreparedStatement... preparedStatements) {
+        for (PreparedStatement stmt : preparedStatements) {
+            if (stmt != null) {
                 try {
-                    connection.close();
+                    stmt.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
         }

@@ -15,6 +15,16 @@
     </servlet-mapping>
 
     <servlet>
+        <display-name>Registration</display-name>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>by.gsu.epamlab.controller.RegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <display-name>Tasks</display-name>
         <servlet-name>Tasks</servlet-name>
         <servlet-class>by.gsu.epamlab.controller.TasksController</servlet-class>

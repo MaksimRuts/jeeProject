@@ -3,7 +3,7 @@ package by.gsu.epamlab.model.factories;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.dao.IUserDao;
 import by.gsu.epamlab.model.daoimpl.memory.TaskDaoMemory;
-import by.gsu.epamlab.model.daoimpl.database.UserDaoMemory;
+import by.gsu.epamlab.model.daoimpl.memory.UserDaoMemory;
 
 public class MemoryDaoFactory extends AbstractDaoFactory {
     private IUserDao userDao = null;

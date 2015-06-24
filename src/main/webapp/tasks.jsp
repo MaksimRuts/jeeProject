@@ -66,10 +66,13 @@
             </c:otherwise>
         </c:choose>
         <br/>
-        <input type="submit" name="actionn" value="add" />
-        <input type="submit" name="actionn" value="remove" />
+        <%--<input type="submit" name="action" value="add" />--%>
+        <%--<input type="submit" name="action" value="remove" />--%>
+        <a href="JavaScript:sendForm('add')">Add</a>&nbsp;
+        <a href="JavaScript:sendForm('remove')">Remove</a>&nbsp;
         <c:if test="${buttonFix}">
-            <input type="submit" name="actionn" value="fix" />
+            <%--<input type="submit" name="action" value="fix" />--%>
+            <a href="JavaScript:sendForm('fix')">Fix</a>&nbsp;
         </c:if>
         <br/>
         <br/>

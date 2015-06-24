@@ -23,4 +23,14 @@ public abstract class AbstractController extends HttpServlet {
     protected void jumpTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
+
+    protected void redirectTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(page);
+    }
+
+    protected void validateField(String field) {
+        if (field == null || "".equals(field)) {
+            throw new IllegalArgumentException(field);
+        }
+    }
 }
