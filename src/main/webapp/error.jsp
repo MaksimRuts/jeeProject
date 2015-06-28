@@ -10,14 +10,14 @@
 </head>
 <body>
     <div class="registration_panel">
-        <p><b>Error</b></p>
+        <h3>Error</h3>
         <div class="registration_field">
             <c:choose>
                 <c:when test="${not empty errorMessage}">
                     <c:out value="${errorMessage}"/>
                 </c:when>
                 <c:otherwise>
-                    <c:out value="<%= ControllerConst.ERROR_UNSUPPORTED %>"/>
+                    <c:out value="<%= ControllerConst.Errors.UNSUPPORTED %>"/>
                 </c:otherwise>
             </c:choose>
             <br/>

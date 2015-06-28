@@ -8,7 +8,7 @@ table {
     border-collapse: collapse;
 }
 
-p {
+h3 {
     text-align: center;
     text-shadow: 2px 2px 0 #ccc;
     font-size: 1.3em;
@@ -17,8 +17,8 @@ p {
 .registration_panel {
     position: absolute;
     top: 150px;
-    width: 250px;
     margin: 0 40% 0 40%;
+    align-content: center;
 }
 
 .registration_field {
@@ -26,6 +26,7 @@ p {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     padding: 10px;
     text-align: center;
+    width: 250px;
 }
 
 .registration_error {
@@ -37,7 +38,7 @@ td {
     padding: 3px;
 }
 
-input {
+.login_input {
     width: 96%;
 }
 

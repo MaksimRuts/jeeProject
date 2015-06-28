@@ -1,7 +1,10 @@
-package by.gsu.epamlab.exceptions;
+package by.gsu.epamlab.model.exceptions;
 
-public class DataSourceException extends Exception {
+public class DataSourceException extends RuntimeException {
     private String message;
+
+    public DataSourceException() {
+    }
 
     public DataSourceException(String message) {
         this.message = message;
