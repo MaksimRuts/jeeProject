@@ -7,9 +7,7 @@ import by.gsu.epamlab.model.exceptions.DataSourceException;
 import by.gsu.epamlab.model.exceptions.ExceptionConstants;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,9 +31,9 @@ public class TaskDaoMemory implements ITaskDao {
     }
 
     @Override
-    public Task read(int noteId, String name) throws DataSourceException {
-        if (notes.containsKey(noteId) && notes.get(noteId).containsKey(name)) {
-            return notes.get(noteId).get(name);
+    public Task read(int userId, int taskId) throws DataSourceException {
+        if (notes.containsKey(userId) && notes.get(userId).containsKey(taskId)) {
+            return notes.get(userId).get(taskId);
         } else {
             throw new DataSourceException(ExceptionConstants.Messages.RECORD_NOT_EXIST);
         }
@@ -82,7 +80,6 @@ public class TaskDaoMemory implements ITaskDao {
 
         task1.setName("Complete stage 2");
         task1.setDateEnding(Date.valueOf(LocalDate.now().plusDays(1)));
-        task1.setTimeEnding(Time.valueOf(LocalTime.now()));
         task1.setUserId(1);
         task1.setDescription("Add notes handling");
         task1.setCompleted(false);
@@ -95,7 +92,6 @@ public class TaskDaoMemory implements ITaskDao {
 
         task2.setName("Complete stage 3");
         task2.setDateEnding(Date.valueOf(LocalDate.now().plusDays(4)));
-        task2.setTimeEnding(Time.valueOf(LocalTime.now()));
         task2.setUserId(1);
         task2.setDescription("Add file management");
         task2.setCompleted(false);

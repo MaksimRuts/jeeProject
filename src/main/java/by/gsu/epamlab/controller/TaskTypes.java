@@ -9,7 +9,7 @@ import java.util.ListIterator;
 
 public enum TaskTypes {
 
-    TODAY("Today", false, false) {
+    TODAY("Today", false, true) {
         @Override
         boolean validateTask(Task task) {
             return task.getDateEnding().equals(Date.valueOf(LocalDate.now())) &&
@@ -18,7 +18,7 @@ public enum TaskTypes {
         }
     },
 
-    TOMORROW("Tomorrow", false, false) {
+    TOMORROW("Tomorrow", false, true) {
         @Override
         boolean validateTask(Task task) {
             return task.getDateEnding().equals(Date.valueOf(LocalDate.now().plusDays(DAYS_TO_NEXT_DAY))) &&
@@ -27,24 +27,24 @@ public enum TaskTypes {
         }
     },
 
-    SOMEDAY("Someday", true, false) {
+    SOMEDAY("Someday", true, true) {
         @Override
         boolean validateTask(Task task) {
             return !task.getDateEnding().equals(Date.valueOf(LocalDate.now().plusDays(DAYS_TO_NEXT_DAY))) &&
-                    task.getDateEnding().equals(Date.valueOf(LocalDate.now())) &&
+                    !task.getDateEnding().equals(Date.valueOf(LocalDate.now())) &&
                     !task.isCompleted() &&
                     !task.isDeleted();
         }
     },
 
-    FIXED("Fixed", true, true) {
+    FIXED("Fixed", true, false) {
         @Override
         boolean validateTask(Task task) {
             return task.isCompleted();
         }
     },
 
-    RECYCLE_BIN("Recycle Bin", true, true) {
+    RECYCLE_BIN("Recycle Bin", true, false) {
         @Override
         boolean validateTask(Task task) {
             return task.isDeleted();
@@ -69,10 +69,13 @@ public enum TaskTypes {
     }
 
     private static final int DAYS_TO_NEXT_DAY = 1;
+
     abstract boolean validateTask(Task task);
+
     public boolean getFixedViewParam() {
         return isFixedView;
     }
+
     public boolean getDateViewParam(){
         return isDataView;
     }
@@ -84,7 +87,7 @@ public enum TaskTypes {
     public List<Task> thinOutTasks(List<Task> tasks) {
         ListIterator<Task> iterator = tasks.listIterator();
         while (iterator.hasNext()) {
-            if (this.validateTask(iterator.next())) {
+            if (!this.validateTask(iterator.next())) {
                 iterator.remove();
             }
         }

@@ -7,9 +7,7 @@ import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 import by.gsu.epamlab.model.factories.MemoryDaoFactory;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 
 public class TestTaskDao {
@@ -24,7 +22,6 @@ public class TestTaskDao {
 
         task1.setName("Complete stage 3");
         task1.setDateEnding(Date.valueOf(LocalDate.now().plusDays(3)));
-        task1.setTimeEnding(Time.valueOf(LocalTime.now().plusHours(10)));
         task1.setUserId(1);
         task1.setDescription("Add usability");
         task1.setCompleted(false);
@@ -35,7 +32,7 @@ public class TestTaskDao {
         System.out.println(Arrays.toString(noteDao.getAll(1, TaskTypes.ALL).toArray()));
         System.out.println();
 
-        Task task = noteDao.read(task1.getUserId(), task1.getName());
+        Task task = noteDao.read(task1.getUserId(), task1.getId());
         task.setDescription("Add usability and features!!");
         noteDao.update(task);
 

@@ -1,5 +1,7 @@
 package by.gsu.epamlab.controller;
 
+import by.gsu.epamlab.model.exceptions.ValidationException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +26,22 @@ public abstract class AbstractController extends HttpServlet {
         getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
+    protected void jumpToError(String message, String backPage,
+                               HttpServletRequest req,
+                               HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, message);
+        req.setAttribute(ControllerConst.Fields.BACK_PAGE, backPage);
+        jumpTo(ControllerConst.Pages.ERROR, req, resp);
+    }
+
     protected void redirectTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect(page);
     }
 
     protected void validateField(String field) {
         if (field == null || "".equals(field)) {
-            throw new IllegalArgumentException(field);
+            throw new ValidationException(field);
         }
     }
 }

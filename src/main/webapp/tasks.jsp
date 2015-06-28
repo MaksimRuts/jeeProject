@@ -15,7 +15,7 @@
     <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
-    <form name="taskForm" action="tasks" method="post">
+    <form name="taskForm" action="action" method="post">
         <h3>${username} notes</h3>
         <br/>
         <a href="JavaScript:sendForm('<%= TaskTypes.TODAY %>')" >
@@ -54,13 +54,15 @@
                         <th>File</th>
                     </tr>
                     <c:forEach items="${tasksList}" var="task">
-                        <td><input type="checkbox" name="select" value="<jsp:getProperty name="task" property="id"/>"></td>
-                        <td><jsp:getProperty name="task" property="name"/></td>
-                        <td><jsp:getProperty name="task" property="description"/></td>
-                        <c:if test="${withDate}">
-                            <td><jsp:getProperty name="task" property="dateEnding"/></td>
-                        </c:if>
-                        <td></td>
+                        </tr>
+                            <td><input type="checkbox" name="select" value="<jsp:getProperty name="task" property="id"/>"></td>
+                            <td><jsp:getProperty name="task" property="name"/></td>
+                            <td><jsp:getProperty name="task" property="description"/></td>
+                            <c:if test="${withDate}">
+                                <td><jsp:getProperty name="task" property="dateEnding"/></td>
+                            </c:if>
+                            <td></td>
+                        </tr>
                     </c:forEach>
                 </table>
             </c:otherwise>
@@ -68,11 +70,11 @@
         <br/>
         <%--<input type="submit" name="action" value="add" />--%>
         <%--<input type="submit" name="action" value="remove" />--%>
-        <a href="JavaScript:sendForm('add')">Add</a>&nbsp;
-        <a href="JavaScript:sendForm('remove')">Remove</a>&nbsp;
+        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
+        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
         <c:if test="${buttonFix}">
             <%--<input type="submit" name="action" value="fix" />--%>
-            <a href="JavaScript:sendForm('fix')">Fix</a>&nbsp;
+            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
         </c:if>
         <br/>
         <br/>

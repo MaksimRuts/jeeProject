@@ -20,34 +20,44 @@ public class TaskDaoDB implements ITaskDao {
     @Override
     public void create(Task task) throws DataSourceException {
         Connection con = ConnectionManager.getConnection();
-        PreparedStatement stmt = null;
+        PreparedStatement stmtSet = null;
+        PreparedStatement stmtGet = null;
+        ResultSet rs = null;
         try {
-            stmt = con.prepareStatement(DataBaseConstants.Queries.INSERT_INTO_TASKS);
-            stmt.setInt(1, task.getUserId());
-            stmt.setString(2, task.getName());
-            stmt.setString(3, task.getDescription());
-            stmt.setDate(4, task.getDateEnding());
-            stmt.setTime(5, task.getTimeEnding());
-            stmt.setBoolean(6, task.isCompleted());
-            stmt.setBoolean(7, task.isDeleted());
-            stmt.executeUpdate();
+            stmtGet = con.prepareStatement(DataBaseConstants.Queries.SELECT_TASK);
+            stmtGet.setInt(1, task.getUserId());
+            stmtGet.setString(2, task.getName());
+            rs = stmtGet.executeQuery();
+            if (!rs.next()) {
+                stmtSet = con.prepareStatement(DataBaseConstants.Queries.INSERT_INTO_TASKS);
+                stmtSet.setInt(1, task.getUserId());
+                stmtSet.setString(2, task.getName());
+                stmtSet.setString(3, task.getDescription());
+                stmtSet.setDate(4, task.getDateEnding());
+                stmtSet.setBoolean(5, task.isCompleted());
+                stmtSet.setBoolean(6, task.isDeleted());
+                stmtSet.executeUpdate();
+            } else {
+                throw new DataSourceException(ExceptionConstants.Messages.RECORD_ALREADY_EXIST);
+            }
         } catch (SQLException e) {
-            throw new DataSourceException(ExceptionConstants.Messages.RECORD_ALREADY_EXIST);
+            throw new DataSourceException(ExceptionConstants.Messages.RECORD_CREATE_ERROR);
         } finally {
-            ConnectionManager.close(stmt);
+            ConnectionManager.close(rs);
+            ConnectionManager.close(stmtSet, stmtGet);
             ConnectionManager.close(con);
         }
     }
 
     @Override
-    public Task read(int noteId, String name) throws DataSourceException {
+    public Task read(int userId, int taskId) throws DataSourceException {
         Connection con = ConnectionManager.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = con.prepareStatement(DataBaseConstants.Queries.SELECT_FROM_TASKS);
-            stmt.setInt(1, noteId);
-            stmt.setString(2, name);
+            stmt = con.prepareStatement(DataBaseConstants.Queries.SELECT_TASK);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, taskId);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 Task task = new Task();
@@ -56,7 +66,6 @@ public class TaskDaoDB implements ITaskDao {
                 task.setName(rs.getString(DataBaseConstants.TableColumns.NAME));
                 task.setDescription(rs.getString(DataBaseConstants.TableColumns.TASK_DESCRIPTION));
                 task.setDateEnding(rs.getDate(DataBaseConstants.TableColumns.TASK_DATE_ENDING));
-                task.setTimeEnding(rs.getTime(DataBaseConstants.TableColumns.TASK_TIME_ENDING));
                 task.setCompleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_COMPLETED));
                 task.setDeleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_DELETED));
                 return task;
@@ -81,10 +90,10 @@ public class TaskDaoDB implements ITaskDao {
             stmt.setString(1, task.getName());
             stmt.setString(2, task.getDescription());
             stmt.setDate(3, task.getDateEnding());
-            stmt.setTime(4, task.getTimeEnding());
-            stmt.setBoolean(5, task.isCompleted());
-            stmt.setBoolean(6, task.isDeleted());
-            stmt.setInt(7, task.getUserId());
+            stmt.setBoolean(4, task.isCompleted());
+            stmt.setBoolean(5, task.isDeleted());
+            stmt.setInt(6, task.getUserId());
+            stmt.setInt(7, task.getId());
 
             synchronized (stmt) {
                 stmt.executeUpdate();
@@ -135,7 +144,6 @@ public class TaskDaoDB implements ITaskDao {
                 task.setName(rs.getString(DataBaseConstants.TableColumns.NAME));
                 task.setDescription(rs.getString(DataBaseConstants.TableColumns.TASK_DESCRIPTION));
                 task.setDateEnding(rs.getDate(DataBaseConstants.TableColumns.TASK_DATE_ENDING));
-                task.setTimeEnding(rs.getTime(DataBaseConstants.TableColumns.TASK_TIME_ENDING));
                 task.setCompleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_COMPLETED));
                 task.setDeleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_DELETED));
                 tasks.add(task);

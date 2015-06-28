@@ -14,14 +14,13 @@ public class RegistrationController extends AbstractController {
     @Override
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter(ControllerConst.Actions.ACTION);
-        String login = req.getParameter(ControllerConst.Fields.LOGIN);
-        String password = req.getParameter(ControllerConst.Fields.PASSWORD);
-        String name = req.getParameter(ControllerConst.Fields.NAME);
-
-        IUserDao userDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getUserDao();
-
 
         if (ControllerConst.Actions.REGISTER.equals(action)) {
+            String login = req.getParameter(ControllerConst.Fields.LOGIN);
+            String password = req.getParameter(ControllerConst.Fields.PASSWORD);
+            String name = req.getParameter(ControllerConst.Fields.NAME);
+
+            IUserDao userDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getUserDao();
             try {
                 validateField(login);
                 validateField(password);
@@ -31,11 +30,9 @@ public class RegistrationController extends AbstractController {
                 req.getSession(true).setAttribute(ControllerConst.Fields.USER, user);
                 redirectTo(ControllerConst.Controllers.TASKS, req, resp);
             } catch (DataSourceException e) {
-                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.REGISTRATION);
-                jumpTo(ControllerConst.Pages.ERROR, req, resp);
+                jumpToError(ControllerConst.Errors.REGISTRATION, ControllerConst.Pages.REGISTRATION, req, resp);
             } catch (IllegalArgumentException e) {
-                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.EMPTY_FIELDS);
-                jumpTo(ControllerConst.Pages.ERROR, req, resp);
+                jumpToError(ControllerConst.Errors.EMPTY_FIELDS, ControllerConst.Pages.REGISTRATION, req, resp);
             }
         } else {
             jumpTo(ControllerConst.Pages.LOGIN, req, resp);

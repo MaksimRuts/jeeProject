@@ -3,6 +3,7 @@ package by.gsu.epamlab.controller;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.dao.IUserDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
+import by.gsu.epamlab.model.exceptions.ValidationException;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 
 import javax.servlet.ServletException;
@@ -27,13 +28,11 @@ public class LoginController extends AbstractController {
 
                 User user = userDao.read(login, password);
                 req.getSession(true).setAttribute(ControllerConst.Fields.USER, user);
-                jumpTo(ControllerConst.Controllers.TASKS, req, resp);
+                jumpTo(ControllerConst.Controllers.ACTION, req, resp);
             } catch (DataSourceException e) {
-                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD);
-                jumpTo(ControllerConst.Pages.ERROR, req, resp);
-            } catch (IllegalArgumentException e) {
-                req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, ControllerConst.Errors.EMPTY_FIELDS);
-                jumpTo(ControllerConst.Pages.ERROR, req, resp);
+                jumpToError(ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD, ControllerConst.Pages.LOGIN, req, resp);
+            } catch (ValidationException e) {
+                jumpToError(ControllerConst.Errors.EMPTY_FIELDS, ControllerConst.Pages.LOGIN, req, resp);
             }
         } else {
             jumpTo(ControllerConst.Pages.LOGIN, req, resp);

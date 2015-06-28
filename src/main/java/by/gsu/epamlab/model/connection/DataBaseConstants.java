@@ -4,7 +4,7 @@ public class DataBaseConstants {
     public static class DataBase {
 
         public static final String DRIVER_URI = "com.mysql.jdbc.Driver";
-        public static final String DATABASE_URL = "jdbc:mysql://localhost/jee2";
+        public static final String DATABASE_URL = "jdbc:mysql://localhost/jee3";
         public static final String DATABASE_LOGIN = "root";
         public static final String DATABASE_PASSWORD = "";
     }
@@ -27,9 +27,9 @@ public class DataBaseConstants {
         public static final String INSERT_USER = "insert into users (login, password, name) values (?, ?, ?)";
         public static final String SELECT_ALL_USERS = "select * from users";
 
-        public static final String INSERT_INTO_TASKS = "insert into tasks (user_id, name, description, date_ending, time_ending, completed, deleted) values (?, ?, ?, ?, ?, ?, ?)";
-        public static final String SELECT_FROM_TASKS = "select * from tasks where user_id = ? and name = ?";
-        public static final String UPDATE_TASK = "update tasks set name = ?, description = ?, date_ending = ?, time_ending = ?, completed = ?, deleted = ? where user_id = ?";
+        public static final String INSERT_INTO_TASKS = "insert into tasks (user_id, name, description, date_ending, completed, deleted) values (?, ?, ?, ?, ?, ?)";
+        public static final String SELECT_TASK = "select * from tasks where user_id = ? and id = ?";
+        public static final String UPDATE_TASK = "update tasks set name = ?, description = ?, date_ending = ?, completed = ?, deleted = ? where user_id = ? and id = ?";
         public static final String DELETE_TASK = "delete from tasks where user_id = ? and name = ?";
         public static final String SELECT_ALL_TASKS = "select * from tasks where user_id = ?";
     }

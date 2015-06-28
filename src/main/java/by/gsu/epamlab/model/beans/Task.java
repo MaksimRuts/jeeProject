@@ -1,19 +1,21 @@
 package by.gsu.epamlab.model.beans;
 
+import by.gsu.epamlab.model.exceptions.ValidationException;
+
 import java.sql.Date;
-import java.sql.Time;
 
 public class Task {
     private int id;
     private String name;
     private String description;
     private Date dateEnding;
-    private Time timeEnding;
     private boolean isCompleted;
     private boolean isDeleted;
     private int userId;
 
     public Task() {
+        setCompleted(false);
+        setDeleted(false);
     }
 
     public int getId() {
@@ -48,12 +50,12 @@ public class Task {
         this.dateEnding = dateEnding;
     }
 
-    public Time getTimeEnding() {
-        return timeEnding;
-    }
-
-    public void setTimeEnding(Time timeEnding) {
-        this.timeEnding = timeEnding;
+    public void setDateEnding(String dateEnding) {
+        try {
+            this.dateEnding = Date.valueOf(dateEnding);
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException(dateEnding, e);
+        }
     }
 
     public boolean isCompleted() {
@@ -87,7 +89,6 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", dateEnding=" + dateEnding +
-                ", timeEnding=" + timeEnding +
                 ", isCompleted=" + isCompleted +
                 ", isDeleted=" + isDeleted +
                 ", userId=" + userId +

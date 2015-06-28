@@ -29,7 +29,6 @@ public class TasksController extends AbstractController {
             }
         }
 
-
         req.setAttribute(ControllerConst.Fields.WITH_DATE, taskType.getDateViewParam());
         req.setAttribute(ControllerConst.Fields.BUTTON_FIX, taskType.getFixedViewParam());
         req.setAttribute(ControllerConst.Fields.USERNAME, user.getName());

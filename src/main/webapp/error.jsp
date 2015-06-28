@@ -21,7 +21,14 @@
                 </c:otherwise>
             </c:choose>
             <br/>
-            <a href="login.jsp">Return to login page</a>
+            <c:choose>
+                <c:when test="${not empty backPage}">
+                    <a href="${backPage}">Back</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="logout">Back to login page</a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </body>

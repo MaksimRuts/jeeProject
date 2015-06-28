@@ -1,22 +1,27 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
-import by.gsu.epamlab.model.factories.MemoryDaoFactory;
+import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
 
 public class ControllerConst {
-    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
+    public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
 
     public static class Pages {
         public static final String ERROR = "/error.jsp";
         public static final String LOGIN = "/login.jsp";
         public static final String TASKS = "/tasks.jsp";
         public static final String REGISTRATION = "/registration.jsp";
+        public static final String ADD_TASK = "/addTask.jsp";
     }
 
     public static class Controllers {
         public static final String TASKS = "/tasks";
         public static final String LOGOUT = "/logout";
         public static final String LOGIN = "/login";
+        public static final String ACTION = "/action";
+        public static final String ADD_TASK = "/addTask";
+        public static final String MANAGE_TASK = "/manageTask";
+
     }
 
     public static class Fields {
@@ -31,12 +36,21 @@ public class ControllerConst {
         public static final String BUTTON_FIX = "buttonFix";
         public static final String WITH_DATE = "withDate";
         public static final String TASKS_LIST = "tasksList";
+        public static final String SELECT = "select";
+        public static final String TASK_NAME = "taskName";
+        public static final String TASK_DATE = "taskDate";
+        public static final String TASK_DESCRIPTION = "taskDescription";
+        public static final String BACK_PAGE = "backPage";
     }
 
     public static class Actions {
         public static final String ACTION = "action";
         public static final String LOGIN = "login_button";
         public static final String REGISTER = "register_button";
+
+        public static final String ADD = "add";
+        public static final String REMOVE = "remove";
+        public static final String COMPLETE = "complete";
     }
 
     public static class Errors {
