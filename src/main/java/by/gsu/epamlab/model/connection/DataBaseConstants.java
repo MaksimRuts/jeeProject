@@ -32,5 +32,8 @@ public class DataBaseConstants {
         public static final String UPDATE_TASK = "update tasks set name = ?, description = ?, date_ending = ?, completed = ?, deleted = ? where user_id = ? and id = ?";
         public static final String DELETE_TASK = "delete from tasks where user_id = ? and name = ?";
         public static final String SELECT_ALL_TASKS = "select * from tasks where user_id = ?";
+        public static final String SELECT_TASKS_BY_TYPES = "select * from tasks where user_id = ? and completed = ? and deleted = ?";
+        public static final String SELECT_TASKS_BY_TYPES_AND_DATA = "select * from tasks where user_id = ? and completed = ? and deleted = ? and date_ending <= ? and date_ending >= ?";
+        public static final String SELECT_TASKS_BY_TYPES_AND_DATA_AFTER = "select * from tasks where user_id = ? and completed = ? and deleted = ? and date_ending > ?";
     }
 }

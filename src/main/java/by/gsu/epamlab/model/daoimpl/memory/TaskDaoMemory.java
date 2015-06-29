@@ -1,6 +1,6 @@
 package by.gsu.epamlab.model.daoimpl.memory;
 
-import by.gsu.epamlab.controller.TaskTypes;
+import by.gsu.epamlab.model.beans.TaskTypes;
 import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
@@ -8,10 +8,7 @@ import by.gsu.epamlab.model.exceptions.ExceptionConstants;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TaskDaoMemory implements ITaskDao {
     private static Map<Integer, Map<String, Task>> notes;
@@ -63,14 +60,24 @@ public class TaskDaoMemory implements ITaskDao {
     }
 
     @Override
-    public List<Task> getAll(int userId) {
-        return notes.containsKey(userId) ?
-                new ArrayList<Task>(notes.get(userId).values()) : new ArrayList<Task>();
+    public List<Task> getAll(int userId, TaskTypes taskType) {
+        List<Task> tasks = new ArrayList<Task>(notes.get(userId).values());
+        ListIterator iterator = tasks.listIterator();
+        while (iterator.hasNext()) {
+            Task task = (Task) iterator.next();
+            if (task.isCompleted() != taskType.isCompleted() ||
+                    task.isDeleted() != taskType.isDeleted() ||
+                    (task.getDateEnding().compareTo(taskType.getDateBelow()) < 0) ||
+                    (task.getDateEnding().compareTo(taskType.getDateHigher()) > 0)) {
+                iterator.remove();
+            }
+        }
+        return tasks;
     }
 
     @Override
-    public List<Task> getAll(int userId, TaskTypes taskType) {
-        return taskType.thinOutTasks(getAll(userId));
+    public List<Task> getAll(int userId) {
+        return getAll(userId, TaskTypes.ALL);
     }
 
     static {

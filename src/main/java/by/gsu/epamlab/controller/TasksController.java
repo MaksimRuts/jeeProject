@@ -1,8 +1,10 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.model.beans.Task;
+import by.gsu.epamlab.model.beans.TaskTypes;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.dao.ITaskDao;
+import by.gsu.epamlab.model.exceptions.DataSourceException;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 
 import javax.servlet.ServletException;
@@ -29,18 +31,22 @@ public class TasksController extends AbstractController {
             }
         }
 
-        req.setAttribute(ControllerConst.Fields.WITH_DATE, taskType.getDateViewParam());
-        req.setAttribute(ControllerConst.Fields.BUTTON_FIX, taskType.getFixedViewParam());
-        req.setAttribute(ControllerConst.Fields.USERNAME, user.getName());
+        try {
+            req.setAttribute(ControllerConst.Fields.WITH_DATE, taskType.isDateShow());
+            req.setAttribute(ControllerConst.Fields.BUTTON_FIX, taskType.isCompleted());
+            req.setAttribute(ControllerConst.Fields.USERNAME, user.getName());
 
-        ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
-        List<Task> list = taskDao.getAll(user.getId(), taskType);
+            ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
+            List<Task> list = taskDao.getAll(user.getId(), taskType);
 
-        req.setAttribute(ControllerConst.Fields.TASKS_LIST, list);
-        // закомментировано для возможности отображения пустой таблицы
-        // req.setAttribute("tasksIsEmpty", list.isEmpty());
-        req.setAttribute(ControllerConst.Fields.TASK_TYPE, taskType.getValue());
+            req.setAttribute(ControllerConst.Fields.TASKS_LIST, list);
+            // закомментировано для возможности отображения пустой таблицы
+            // req.setAttribute("tasksIsEmpty", list.isEmpty());
+            req.setAttribute(ControllerConst.Fields.TASK_TYPE, taskType.getValue());
 
-        jumpTo(ControllerConst.Pages.TASKS, req, resp);
+            jumpTo(ControllerConst.Pages.TASKS, req, resp);
+        } catch (DataSourceException e) {
+            jumpToError(ControllerConst.Errors.TASKS_REQUEST_ERROR, ControllerConst.Controllers.TASKS, req, resp);
+        }
     }
 }

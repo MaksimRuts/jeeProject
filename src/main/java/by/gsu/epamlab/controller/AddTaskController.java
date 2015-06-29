@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 
 public class AddTaskController extends AbstractController {
 
@@ -32,8 +31,7 @@ public class AddTaskController extends AbstractController {
                 Task task = new Task();
                 task.setName(name);
                 task.setDescription(description);
-                // TODO добавить сеттер с сигнатурой String??
-                task.setDateEnding(Date.valueOf(date));
+                task.setDateEnding(date);
                 task.setUserId(user.getId());
                 AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
                         .getTaskDao()

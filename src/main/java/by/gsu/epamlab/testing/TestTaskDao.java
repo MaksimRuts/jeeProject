@@ -1,6 +1,6 @@
 package by.gsu.epamlab.testing;
 
-import by.gsu.epamlab.controller.TaskTypes;
+import by.gsu.epamlab.model.beans.TaskTypes;
 import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;

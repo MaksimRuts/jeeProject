@@ -1,10 +1,12 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
-import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
+import by.gsu.epamlab.model.factories.MemoryDaoFactory;
 
 public class ControllerConst {
-    public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
+    // TODO прикрутить инициализацию с параметров сервлета
+//    public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
+    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
 
     public static class Pages {
         public static final String ERROR = "/error.jsp";
@@ -58,6 +60,7 @@ public class ControllerConst {
         public static final String INVALID_LOGIN_OR_PASSWORD = "Invalid login or password";
         public static final String REGISTRATION = "Registration error";
         public static final String UNSUPPORTED = "Unsupported error. Don't panic and contact to developers";
+        public static final String TASKS_REQUEST_ERROR = "Tasks request error";
     }
 
     public static class Messages {

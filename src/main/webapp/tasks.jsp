@@ -1,5 +1,5 @@
 <%@ page import="by.gsu.epamlab.controller.ControllerConst" %>
-<%@ page import="by.gsu.epamlab.controller.TaskTypes" %>
+<%@ page import="by.gsu.epamlab.model.beans.TaskTypes" %>
 <%@ page import="by.gsu.epamlab.model.beans.Task" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,8 +27,8 @@
         <a href="JavaScript:sendForm('<%= TaskTypes.SOMEDAY %>')">
             <%= TaskTypes.SOMEDAY.getValue() %>
         </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypes.FIXED %>')">
-            <%= TaskTypes.FIXED.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypes.COMPLETE %>')">
+            <%= TaskTypes.COMPLETE.getValue() %>
         </a>&nbsp;
         <a href="JavaScript:sendForm('<%= TaskTypes.RECYCLE_BIN %>')">
             <%= TaskTypes.RECYCLE_BIN.getValue() %>

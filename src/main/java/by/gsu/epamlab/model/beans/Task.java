@@ -3,8 +3,12 @@ package by.gsu.epamlab.model.beans;
 import by.gsu.epamlab.model.exceptions.ValidationException;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Task {
+    public static final String DATE_PARSE_PATTERN = "yyyy/MM/dd";
+
     private int id;
     private String name;
     private String description;
@@ -52,8 +56,10 @@ public class Task {
 
     public void setDateEnding(String dateEnding) {
         try {
-            this.dateEnding = Date.valueOf(dateEnding);
-        } catch (IllegalArgumentException e) {
+            this.dateEnding = new Date((new SimpleDateFormat(DATE_PARSE_PATTERN)
+                    .parse(dateEnding))
+                    .getTime());
+        } catch (ParseException e) {
             throw new ValidationException(dateEnding, e);
         }
     }
