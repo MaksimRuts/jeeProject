@@ -21,7 +21,12 @@ public enum TaskTypes {
             return Date.valueOf(LocalDate.now().plusDays(DAYS_TO_NEXT_DAY));
         }
     },
-    SOMEDAY("Someday", false, false, true),
+    SOMEDAY("Someday", false, false, true) {
+        @Override
+        public Date getDateBelow() {
+            return Date.valueOf(LocalDate.now().plusDays(2));
+        }
+    },
     COMPLETE("Complete", true, false, true),
     RECYCLE_BIN("Recycle Bin", false, true, true),
     ALL("All", true, true, true);

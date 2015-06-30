@@ -1,12 +1,12 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
-import by.gsu.epamlab.model.factories.MemoryDaoFactory;
+import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
 
 public class ControllerConst {
     // TODO прикрутить инициализацию с параметров сервлета
-//    public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
-    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
+    public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
+//    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
 
     public static class Pages {
         public static final String ERROR = "/error.jsp";
