@@ -35,7 +35,7 @@ public class ControllerConst {
         public static final String INFO_MESSAGE = "infoMessage";
         public static final String USER = "user";
         public static final String TASK_TYPE = "taskType";
-        public static final String BUTTON_FIX = "buttonFix";
+        public static final String BUTTON_COMPLETE = "buttonComplete";
         public static final String WITH_DATE = "withDate";
         public static final String TASKS_LIST = "tasksList";
         public static final String SELECT = "select";

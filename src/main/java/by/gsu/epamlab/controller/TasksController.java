@@ -1,7 +1,6 @@
 package by.gsu.epamlab.controller;
 
 import by.gsu.epamlab.model.beans.Task;
-import by.gsu.epamlab.model.beans.TaskTypes;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
@@ -19,25 +18,25 @@ public class TasksController extends AbstractController {
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User)req.getSession().getAttribute(ControllerConst.Fields.USER);
         String taskTypeStr = req.getParameter(ControllerConst.Actions.ACTION);
-        TaskTypes taskType;
+        TaskTypesWrapper taskType;
 
         if (taskTypeStr == null) {
-            taskType = TaskTypes.TODAY;
+            taskType = TaskTypesWrapper.TODAY;
         } else {
             try {
-                taskType = TaskTypes.valueOf(taskTypeStr);
+                taskType = TaskTypesWrapper.valueOf(taskTypeStr);
             } catch (IllegalArgumentException e) {
-                taskType = TaskTypes.TODAY;
+                taskType = TaskTypesWrapper.TODAY;
             }
         }
 
         try {
             req.setAttribute(ControllerConst.Fields.WITH_DATE, taskType.isDateShow());
-            req.setAttribute(ControllerConst.Fields.BUTTON_FIX, taskType.isCompleted());
+            req.setAttribute(ControllerConst.Fields.BUTTON_COMPLETE, taskType.isButtonComplete());
             req.setAttribute(ControllerConst.Fields.USERNAME, user.getName());
 
             ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
-            List<Task> list = taskDao.getAll(user.getId(), taskType);
+            List<Task> list = taskDao.getAll(user.getId(), taskType.getType());
 
             req.setAttribute(ControllerConst.Fields.TASKS_LIST, list);
             // закомментировано для возможности отображения пустой таблицы

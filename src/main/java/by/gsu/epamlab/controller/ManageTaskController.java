@@ -19,25 +19,26 @@ public class ManageTaskController extends AbstractController {
         String taskTypeStr = req.getParameter(ControllerConst.Fields.TASK_TYPE);
 
         String[] tasksId = req.getParameterValues(ControllerConst.Fields.SELECT);
-        ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
-        for (String id : tasksId) {
-            if (ControllerConst.Actions.REMOVE.equals(action)) {
-                Task task = taskDao.read(user.getId(), Integer.parseInt(id));
+        if (tasksId != null) {
+            ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
+            for (String id : tasksId) {
+                if (ControllerConst.Actions.REMOVE.equals(action)) {
+                    Task task = taskDao.read(user.getId(), Integer.parseInt(id));
 
-//                if (taskTypeStr != null && TaskTypes.RECYCLE_BIN.equals(TaskTypes.valueOf(taskTypeStr))) {
-//                    taskDao.delete(task);
-//                } else {
-                    task.setDeleted(true);
+    //                if (taskTypeStr != null && TaskTypes.RECYCLE_BIN.equals(TaskTypes.valueOf(taskTypeStr))) {
+    //                    taskDao.delete(task);
+    //                } else {
+                        task.setDeleted(true);
+                        taskDao.update(task);
+    //                }
+
+                } else if (ControllerConst.Actions.COMPLETE.equals(action)) {
+                    Task task = taskDao.read(user.getId(), Integer.parseInt(id));
+                    task.setCompleted(true);
                     taskDao.update(task);
-//                }
-
-            } else if (ControllerConst.Actions.COMPLETE.equals(action)) {
-                Task task = taskDao.read(user.getId(), Integer.parseInt(id));
-                task.setCompleted(true);
-                taskDao.update(task);
+                }
             }
         }
-        jumpTo(ControllerConst.Pages.TASKS, req, resp);
-
+        jumpTo(ControllerConst.Controllers.TASKS, req, resp);
     }
 }

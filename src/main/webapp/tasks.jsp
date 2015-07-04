@@ -1,10 +1,11 @@
 <%@ page import="by.gsu.epamlab.controller.ControllerConst" %>
-<%@ page import="by.gsu.epamlab.model.beans.TaskTypes" %>
-<%@ page import="by.gsu.epamlab.model.beans.Task" %>
+<%@ page import="by.gsu.epamlab.controller.TaskTypesWrapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="task" class="by.gsu.epamlab.model.beans.Task" scope="page"/>
+<c:set var="taskType" scope="session" value="${taskType}"/>
+<c:set var="withDate" scope="session" value="${withDate}"/>
 
 <html>
 <head>
@@ -18,26 +19,26 @@
     <form name="taskForm" action="action" method="post">
         <h3>${username} notes</h3>
         <br/>
-        <a href="JavaScript:sendForm('<%= TaskTypes.TODAY %>')" >
-            <%= TaskTypes.TODAY.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
+            <%= TaskTypesWrapper.TODAY.getValue() %>
         </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypes.TOMORROW %>')">
-            <%= TaskTypes.TOMORROW.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TOMORROW %>')">
+            <%= TaskTypesWrapper.TOMORROW.getValue() %>
         </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypes.SOMEDAY %>')">
-            <%= TaskTypes.SOMEDAY.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.SOMEDAY %>')">
+            <%= TaskTypesWrapper.SOMEDAY.getValue() %>
         </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypes.COMPLETE %>')">
-            <%= TaskTypes.COMPLETE.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.COMPLETE %>')">
+            <%= TaskTypesWrapper.COMPLETE.getValue() %>
         </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypes.RECYCLE_BIN %>')">
-            <%= TaskTypes.RECYCLE_BIN.getValue() %>
+        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.RECYCLE_BIN %>')">
+            <%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>
         </a>&nbsp;
         <input type=hidden name="action" value="">
         <br/>
         <br/>
 
-        <h4>${taskType}</h4>
+        <h4><c:out value="${taskType}"/></h4>
         <c:choose>
             <c:when test="${tasksIsEmpty}">
                 <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
@@ -68,12 +69,9 @@
             </c:otherwise>
         </c:choose>
         <br/>
-        <%--<input type="submit" name="action" value="add" />--%>
-        <%--<input type="submit" name="action" value="remove" />--%>
         <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
         <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
-        <c:if test="${buttonFix}">
-            <%--<input type="submit" name="action" value="fix" />--%>
+        <c:if test="${buttonComplete}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
         </c:if>
         <br/>

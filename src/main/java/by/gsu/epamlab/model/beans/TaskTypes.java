@@ -4,45 +4,54 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public enum TaskTypes {
-    TODAY("Today", false, false, false) {
+    TODAY("Today", false, false) {
         @Override
         public Date getDateHigher() {
             return Date.valueOf(LocalDate.now());
         }
+
+        @Override
+        public Date getDefaultDate() {
+            return Date.valueOf(LocalDate.now());
+        }
     },
-    TOMORROW("Tomorrow", false, false, false) {
+    TOMORROW("Tomorrow", false, false) {
         @Override
         public Date getDateBelow() {
-            return Date.valueOf(LocalDate.now().plusDays(DAYS_TO_NEXT_DAY));
+            return Date.valueOf(LocalDate.now().plusDays(TOMORROW_DAY_OFFSET));
         }
 
         @Override
         public Date getDateHigher() {
-            return Date.valueOf(LocalDate.now().plusDays(DAYS_TO_NEXT_DAY));
+            return Date.valueOf(LocalDate.now().plusDays(TOMORROW_DAY_OFFSET));
+        }
+
+        @Override
+        public Date getDefaultDate() {
+            return Date.valueOf(LocalDate.now().plusDays(TOMORROW_DAY_OFFSET));
         }
     },
-    SOMEDAY("Someday", false, false, true) {
+    SOMEDAY("Someday", false, false) {
         @Override
         public Date getDateBelow() {
-            return Date.valueOf(LocalDate.now().plusDays(2));
+            return Date.valueOf(LocalDate.now().plusDays(SOMEDAY_DAY_OFFSET));
         }
     },
-    COMPLETE("Complete", true, false, true),
-    RECYCLE_BIN("Recycle Bin", false, true, true),
-    ALL("All", true, true, true);
+    COMPLETE("Complete", true, false),
+    RECYCLE_BIN("Recycle Bin", false, true),
+    ALL("All", true, true);
 
-    private static final int DAYS_TO_NEXT_DAY = 1;
+    private static final int TOMORROW_DAY_OFFSET = 1;
+    private static final int SOMEDAY_DAY_OFFSET = 2;
 
     private String value;
     private boolean isCompleted;
     private boolean isDeleted;
-    private boolean isDateShow;
 
-    private TaskTypes(String value, boolean isCompleted, boolean isDeleted, boolean isDateShow) {
+    private TaskTypes(String value, boolean isCompleted, boolean isDeleted) {
         this.value = value;
         this.isCompleted = isCompleted;
         this.isDeleted = isDeleted;
-        this.isDateShow = isDateShow;
     }
 
     public Date getDateBelow() {
@@ -55,16 +64,16 @@ public enum TaskTypes {
         return Date.valueOf(LocalDate.now().plusYears(100));
     }
 
+    public Date getDefaultDate() {
+        return null;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }
 
     public boolean isDeleted() {
         return isDeleted;
-    }
-
-    public boolean isDateShow() {
-        return isDateShow;
     }
 
     public String getValue() {
