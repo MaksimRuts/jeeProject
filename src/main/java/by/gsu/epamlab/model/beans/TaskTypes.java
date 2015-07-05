@@ -11,7 +11,7 @@ public enum TaskTypes {
         }
 
         @Override
-        public Date getDefaultDate() {
+        public Date getDate() {
             return Date.valueOf(LocalDate.now());
         }
     },
@@ -27,7 +27,7 @@ public enum TaskTypes {
         }
 
         @Override
-        public Date getDefaultDate() {
+        public Date getDate() {
             return Date.valueOf(LocalDate.now().plusDays(TOMORROW_DAY_OFFSET));
         }
     },
@@ -64,7 +64,7 @@ public enum TaskTypes {
         return Date.valueOf(LocalDate.now().plusYears(100));
     }
 
-    public Date getDefaultDate() {
+    public Date getDate() {
         return null;
     }
 

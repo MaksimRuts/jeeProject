@@ -14,6 +14,7 @@ public class ControllerConst {
         public static final String TASKS = "/tasks.jsp";
         public static final String REGISTRATION = "/registration.jsp";
         public static final String ADD_TASK = "/addTask.jsp";
+        public static final String EDIT_TASK = "/editTask.jsp";
     }
 
     public static class Controllers {
@@ -22,6 +23,7 @@ public class ControllerConst {
         public static final String LOGIN = "/login";
         public static final String ACTION = "/action";
         public static final String ADD_TASK = "/addTask";
+        public static final String EDIT_TASK = "/editTask";
         public static final String MANAGE_TASK = "/manageTask";
 
     }
@@ -35,14 +37,18 @@ public class ControllerConst {
         public static final String INFO_MESSAGE = "infoMessage";
         public static final String USER = "user";
         public static final String TASK_TYPE = "taskType";
+        public static final String TASK_TYPE_VALUE = "taskTypeValue";
         public static final String BUTTON_COMPLETE = "buttonComplete";
+        public static final String BUTTON_ADD = "buttonAdd";
         public static final String WITH_DATE = "withDate";
         public static final String TASKS_LIST = "tasksList";
         public static final String SELECT = "select";
+        public static final String TASK = "task";
         public static final String TASK_NAME = "taskName";
         public static final String TASK_DATE = "taskDate";
         public static final String TASK_DESCRIPTION = "taskDescription";
         public static final String BACK_PAGE = "backPage";
+        public static final String DATE = "date";
     }
 
     public static class Actions {
@@ -51,8 +57,12 @@ public class ControllerConst {
         public static final String REGISTER = "register_button";
 
         public static final String ADD = "add";
+        public static final String EDIT = "edit";
         public static final String REMOVE = "remove";
         public static final String COMPLETE = "complete";
+        public static final String CONFIRM = "confirm";
+        public static final String RESTORE = "restore";
+        public static final String REMOVE_ALL = "removeAll";
     }
 
     public static class Errors {
@@ -64,7 +74,7 @@ public class ControllerConst {
     }
 
     public static class Messages {
-        public static final String NOTES_LIST_EMPTY = "Your notes list is empty";
+        public static final String NOTES_LIST_EMPTY = "This notes list is empty";
         public static final String REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
     }
 }

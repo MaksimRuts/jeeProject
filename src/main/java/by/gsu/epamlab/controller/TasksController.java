@@ -9,6 +9,7 @@ import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,36 +17,33 @@ public class TasksController extends AbstractController {
 
     @Override
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User)req.getSession().getAttribute(ControllerConst.Fields.USER);
-        String taskTypeStr = req.getParameter(ControllerConst.Actions.ACTION);
-        TaskTypesWrapper taskType;
-
-        if (taskTypeStr == null) {
-            taskType = TaskTypesWrapper.TODAY;
-        } else {
-            try {
-                taskType = TaskTypesWrapper.valueOf(taskTypeStr);
-            } catch (IllegalArgumentException e) {
-                taskType = TaskTypesWrapper.TODAY;
-            }
-        }
+        String action = req.getParameter(ControllerConst.Actions.ACTION);
+        HttpSession session = req.getSession();
+        TaskTypesWrapper taskType = (TaskTypesWrapper) session.getAttribute(ControllerConst.Fields.TASK_TYPE);
 
         try {
-            req.setAttribute(ControllerConst.Fields.WITH_DATE, taskType.isDateShow());
-            req.setAttribute(ControllerConst.Fields.BUTTON_COMPLETE, taskType.isButtonComplete());
-            req.setAttribute(ControllerConst.Fields.USERNAME, user.getName());
+            if (taskType == null) {
+                taskType = TaskTypesWrapper.TODAY;
+            }
+
+            if (action != null) {
+                try {
+                    taskType = TaskTypesWrapper.valueOf(action);
+                } catch (IllegalArgumentException e) {
+                    // do nothing
+                }
+            }
+
+            User user = (User)session.getAttribute(ControllerConst.Fields.USER);
+            session.setAttribute(ControllerConst.Fields.TASK_TYPE, taskType);
 
             ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY).getTaskDao();
             List<Task> list = taskDao.getAll(user.getId(), taskType.getType());
-
             req.setAttribute(ControllerConst.Fields.TASKS_LIST, list);
-            // закомментировано для возможности отображения пустой таблицы
-            // req.setAttribute("tasksIsEmpty", list.isEmpty());
-            req.setAttribute(ControllerConst.Fields.TASK_TYPE, taskType.getValue());
 
-            jumpTo(ControllerConst.Pages.TASKS, req, resp);
         } catch (DataSourceException e) {
             jumpToError(ControllerConst.Errors.TASKS_REQUEST_ERROR, ControllerConst.Controllers.TASKS, req, resp);
         }
+        jumpTo(ControllerConst.Pages.TASKS, req, resp);
     }
 }

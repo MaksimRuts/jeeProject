@@ -4,8 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="task" class="by.gsu.epamlab.model.beans.Task" scope="page"/>
-<c:set var="taskType" scope="session" value="${taskType}"/>
-<c:set var="withDate" scope="session" value="${withDate}"/>
+<c:set var="taskType" scope="session" value="${sessionScope.taskType}"/>
+<c:set var="user" scope="session" value="${sessionScope.user}"/>
 
 <html>
 <head>
@@ -17,7 +17,8 @@
 </head>
 <body>
     <form name="taskForm" action="action" method="post">
-        <h3>${username} notes</h3>
+        <input type=hidden name="action" value="">
+        <%@ include file="header.jsp" %>
         <br/>
         <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
             <%= TaskTypesWrapper.TODAY.getValue() %>
@@ -34,13 +35,16 @@
         <a href="JavaScript:sendForm('<%= TaskTypesWrapper.RECYCLE_BIN %>')">
             <%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>
         </a>&nbsp;
-        <input type=hidden name="action" value="">
         <br/>
         <br/>
 
-        <h4><c:out value="${taskType}"/></h4>
+        <h4><c:out value="${taskType.value}"/>
+            <c:if test="${not empty taskType.date}">
+                    <c:out value=" (${taskType.date})"/>
+            </c:if>
+        </h4>
         <c:choose>
-            <c:when test="${tasksIsEmpty}">
+            <c:when test="${empty tasksList}">
                 <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
             </c:when>
             <c:otherwise>
@@ -49,17 +53,17 @@
                         <th>Select</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <c:if test="${withDate}">
+                        <c:if test="${taskType.dateShow}">
                             <th>Expiration date</th>
                         </c:if>
                         <th>File</th>
                     </tr>
                     <c:forEach items="${tasksList}" var="task">
-                        </tr>
+                        <tr>
                             <td><input type="checkbox" name="select" value="<jsp:getProperty name="task" property="id"/>"></td>
                             <td><jsp:getProperty name="task" property="name"/></td>
                             <td><jsp:getProperty name="task" property="description"/></td>
-                            <c:if test="${withDate}">
+                            <c:if test="${taskType.dateShow}">
                                 <td><jsp:getProperty name="task" property="dateEnding"/></td>
                             </c:if>
                             <td></td>
@@ -69,14 +73,24 @@
             </c:otherwise>
         </c:choose>
         <br/>
-        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
-        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
-        <c:if test="${buttonComplete}">
+        <c:if test="${taskType.buttonAdd}">
+            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
+        </c:if>
+        <c:if test="${taskType.buttonEdit}">
+            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;
+        </c:if>
+        <c:if test="${taskType.buttonComplete}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
         </c:if>
+        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
+        <c:if test="${taskType.buttonRestore}">
+            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
+        </c:if>
+        <c:if test="${taskType.buttonRemoveAll}">
+            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
+        </c:if>
         <br/>
-        <br/>
-        <a href="logout">Logout</a>
+        <%@ include file="footer.jsp"%>
     </form>
 </body>
 </html>
