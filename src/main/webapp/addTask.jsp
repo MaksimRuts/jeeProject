@@ -8,10 +8,10 @@
 <html>
 <head>
     <title>Add task</title>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="resources/script.js"></script>
 </head>
 <body>
-    <form name="taskForm" method="post" action="addTask">
+    <form name="taskForm" method="post" action="addTask" enctype="multipart/form-data">
         <input type=hidden name="action" value="">
         <%@ include file="header.jsp" %>
         <h3>Add new task for <c:out value="${taskType.value}"/></h3>
@@ -29,6 +29,10 @@
             <tr>
                 <td><label for="taskDescriptionId">Description</label></td>
                 <td><textarea name="taskDescription" id="taskDescriptionId"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="taskFileId">File</label></td>
+                <td><input type="file" name="file" id="taskFileId"/></td>
             </tr>
         </table>
         <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;

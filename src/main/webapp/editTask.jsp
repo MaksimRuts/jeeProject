@@ -10,10 +10,10 @@
 <html>
 <head>
     <title>Add task</title>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="resources/script.js"></script>
 </head>
 <body>
-    <form name="taskForm" method="post" action="editTask">
+    <form name="taskForm" method="post" action="editTask" enctype="multipart/form-data">
         <input type=hidden name="action" value="">
         <%@ include file="header.jsp" %>
         <h3>Edit task</h3>

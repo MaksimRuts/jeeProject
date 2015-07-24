@@ -11,13 +11,14 @@
 <head>
     <title>Notes</title>
     <style>
-        <%@ include file="login.css"%>
+        <%@ include file="resources/login.css"%>
     </style>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="resources/script.js"></script>
 </head>
 <body>
     <form name="taskForm" action="action" method="post">
         <input type=hidden name="action" value="">
+        <input type=hidden name = "taskId" id="taskId" value="">
         <%@ include file="header.jsp" %>
         <br/>
         <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
@@ -61,12 +62,23 @@
                     <c:forEach items="${tasksList}" var="task">
                         <tr>
                             <td><input type="checkbox" name="select" value="<jsp:getProperty name="task" property="id"/>"></td>
-                            <td><jsp:getProperty name="task" property="name"/></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${taskType.buttonEdit}">
+                                        <a href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.EDIT %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="name"/></a>&nbsp;
+                                    </c:when>
+                                    <c:otherwise>
+                                        <jsp:getProperty name="task" property="name"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td><jsp:getProperty name="task" property="description"/></td>
                             <c:if test="${taskType.dateShow}">
                                 <td><jsp:getProperty name="task" property="dateEnding"/></td>
                             </c:if>
-                            <td></td>
+                            <td>
+                                <a href="/uploaded/<jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -76,9 +88,9 @@
         <c:if test="${taskType.buttonAdd}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
         </c:if>
-        <c:if test="${taskType.buttonEdit}">
-            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;
-        </c:if>
+        <%--<c:if test="${taskType.buttonEdit}">--%>
+            <%--<a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;--%>
+        <%--</c:if>--%>
         <c:if test="${taskType.buttonComplete}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
         </c:if>

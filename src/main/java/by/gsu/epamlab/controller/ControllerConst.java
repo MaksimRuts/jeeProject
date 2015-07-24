@@ -6,6 +6,7 @@ import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
 public class ControllerConst {
     // TODO прикрутить инициализацию с параметров сервлета
     public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
 //    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
 
     public static class Pages {
@@ -49,6 +50,8 @@ public class ControllerConst {
         public static final String TASK_DESCRIPTION = "taskDescription";
         public static final String BACK_PAGE = "backPage";
         public static final String DATE = "date";
+        public static final String TASK_ID = "taskId";
+        public static final String FILE = "file";
     }
 
     public static class Actions {

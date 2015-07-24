@@ -33,6 +33,7 @@ public class TaskDaoDB implements ITaskDao {
                 stmtSet.setDate(4, task.getDateEnding());
                 stmtSet.setBoolean(5, task.isCompleted());
                 stmtSet.setBoolean(6, task.isDeleted());
+                stmtSet.setString(7, task.getFilename());
                 stmtSet.executeUpdate();
             } else {
                 throw new DataSourceException(ExceptionConstants.Messages.RECORD_ALREADY_EXIST);
@@ -65,6 +66,7 @@ public class TaskDaoDB implements ITaskDao {
                 task.setDateEnding(rs.getDate(DataBaseConstants.TableColumns.TASK_DATE_ENDING));
                 task.setCompleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_COMPLETED));
                 task.setDeleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_DELETED));
+                task.setFilename(rs.getString(DataBaseConstants.TableColumns.FILEPATH));
                 return task;
             } else {
                 throw new DataSourceException(ExceptionConstants.Messages.RECORD_NOT_EXIST);
@@ -89,8 +91,9 @@ public class TaskDaoDB implements ITaskDao {
             stmt.setDate(3, task.getDateEnding());
             stmt.setBoolean(4, task.isCompleted());
             stmt.setBoolean(5, task.isDeleted());
-            stmt.setInt(6, task.getUserId());
-            stmt.setInt(7, task.getId());
+            stmt.setString(6, task.getFilename());
+            stmt.setInt(7, task.getUserId());
+            stmt.setInt(8, task.getId());
 
             synchronized (stmt) {
                 stmt.executeUpdate();
@@ -155,6 +158,7 @@ public class TaskDaoDB implements ITaskDao {
                 task.setDateEnding(rs.getDate(DataBaseConstants.TableColumns.TASK_DATE_ENDING));
                 task.setCompleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_COMPLETED));
                 task.setDeleted(rs.getBoolean(DataBaseConstants.TableColumns.TASK_DELETED));
+                task.setFilename(rs.getString(DataBaseConstants.TableColumns.FILEPATH));
                 tasks.add(task);
             }
             return tasks;

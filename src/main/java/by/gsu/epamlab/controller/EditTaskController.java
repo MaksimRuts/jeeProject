@@ -11,16 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditTaskController extends AbstractController {
+
+
     @Override
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(ControllerConst.Actions.ACTION);
+        checkRequestType(req);
+        String action = getParameter(ControllerConst.Actions.ACTION);
+
         if (ControllerConst.Actions.REMOVE.equals(action)) {
             jumpTo(ControllerConst.Controllers.MANAGE_TASK, req, resp);
         } else if (ControllerConst.Actions.CONFIRM.equals(action)) {
-            String name = req.getParameter(ControllerConst.Fields.TASK_NAME);
-            String date = req.getParameter(ControllerConst.Fields.TASK_DATE);
-            String description = req.getParameter(ControllerConst.Fields.TASK_DESCRIPTION);
-            String tasksId = req.getParameter(ControllerConst.Fields.SELECT);
+            String name = getParameter(ControllerConst.Fields.TASK_NAME);
+            String date = getParameter(ControllerConst.Fields.TASK_DATE);
+            String description = getParameter(ControllerConst.Fields.TASK_DESCRIPTION);
+            String tasksId = getParameter(ControllerConst.Fields.SELECT);
 
             validateField(name);
             validateField(date);
@@ -42,12 +46,14 @@ public class EditTaskController extends AbstractController {
             redirectTo(ControllerConst.Controllers.TASKS, req, resp);
         } else {
             // get first selected task
-            String[] tasksId = req.getParameterValues(ControllerConst.Fields.SELECT);
-            if (tasksId != null && tasksId.length > 0) {
+
+            String tasksId = getParameter(ControllerConst.Fields.TASK_ID);
+//            if (tasksId != null && tasksId.length > 0) {
+            if (tasksId != null) {
                 User user = (User) req.getSession().getAttribute(ControllerConst.Fields.USER);
                 ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
                         .getTaskDao();
-                Task task = taskDao.read(user.getId(), Integer.parseInt(tasksId[0]));
+                Task task = taskDao.read(user.getId(), Integer.parseInt(tasksId));
                 req.setAttribute(ControllerConst.Fields.TASK, task);
                 jumpTo(ControllerConst.Pages.EDIT_TASK, req, resp);
             } else {

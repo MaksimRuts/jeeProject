@@ -16,6 +16,7 @@ public class Task {
     private boolean isCompleted;
     private boolean isDeleted;
     private int userId;
+    private String filename;
 
     public Task() {
         setCompleted(false);
@@ -86,6 +87,14 @@ public class Task {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     @Override
