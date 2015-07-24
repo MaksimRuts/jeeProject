@@ -82,10 +82,10 @@
         <c:if test="${taskType.buttonComplete}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
         </c:if>
-        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
         <c:if test="${taskType.buttonRestore}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
         </c:if>
+        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
         <c:if test="${taskType.buttonRemoveAll}">
             <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
         </c:if>

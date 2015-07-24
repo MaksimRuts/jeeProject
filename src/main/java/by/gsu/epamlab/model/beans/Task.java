@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Task {
-    public static final String DATE_PARSE_PATTERN = "yyyy/MM/dd";
+    public static final String DATE_PARSE_PATTERN = "yyyy-MM-dd";
 
     private int id;
     private String name;

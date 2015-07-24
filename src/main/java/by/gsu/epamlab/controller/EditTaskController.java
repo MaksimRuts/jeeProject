@@ -36,6 +36,7 @@ public class EditTaskController extends AbstractController {
             task.setName(name);
             task.setDescription(description);
             task.setUserId(user.getId());
+            task.setDateEnding(date);
 
             taskDao.update(task);
             redirectTo(ControllerConst.Controllers.TASKS, req, resp);
