@@ -5,7 +5,7 @@
 <head>
     <title>Error page</title>
     <style>
-        <%@ include file="resources/login.css"%>
+        <%@ include file="css/login.css"%>
     </style>
 </head>
 <body>

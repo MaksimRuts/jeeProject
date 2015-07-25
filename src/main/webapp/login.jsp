@@ -4,33 +4,42 @@
 <html>
 <head>
     <title>Login</title>
-    <style>
-        <%@ include file="resources/login.css"%>
-    </style>
+    <%--<style>--%>
+        <%--<%@ include file="css/login.css"%>--%>
+    <%--</style>--%>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="registration_panel">
-        <h3>Login to system</h3>
-        <div class="registration_field">
-            <form action="login" method="post">
-                <table>
-                    <tr>
-                        <td><label for="login_field">Login:</label></td>
-                        <td><input class="login_input" type="text" name="<%= ControllerConst.Fields.LOGIN %>" id="login_field" value="" required="required"><br></td>
-                    </tr>
-                    <tr>
-                        <td><label for="password_field">Password:</label></td>
-                        <td><input class="login_input" type="password" name="<%= ControllerConst.Fields.PASSWORD %>" id="password_field" value="" required="required"><br></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><button name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.LOGIN %>">Login</button></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><a href="<%= ControllerConst.Pages.REGISTRATION %>">Register new user</a></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+    <div class="container">
+        <form action="login" method="post" role="form" class="form-horizontal">
+            <div class="form-group text-center">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <h3>Login to system</h3>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <input class="form-control" type="text" id="login_field" value="" required="required" placeholder="Login" name="<%= ControllerConst.Fields.LOGIN %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <input class="form-control" type="password" id="password_field" value="" required="required" placeholder="Password" name="<%= ControllerConst.Fields.PASSWORD %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button class="btn btn-default col-sm-12" name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.LOGIN %>">Login</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <a class="btn btn-default col-sm-12" href="<%= ControllerConst.Pages.REGISTRATION %>">Register new user</a>
+                </div>
+            </div>
+        </form>
     </div>
 </body>
 </html>

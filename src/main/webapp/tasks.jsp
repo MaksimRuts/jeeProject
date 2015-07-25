@@ -11,32 +11,58 @@
 <head>
     <title>Notes</title>
     <style>
-        <%@ include file="resources/login.css"%>
+        <%@ include file="css/login.css"%>
     </style>
-    <script type="text/javascript" src="resources/script.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
     <form name="taskForm" action="action" method="post">
         <input type=hidden name="action" value="">
         <input type=hidden name = "taskId" id="taskId" value="">
         <%@ include file="header.jsp" %>
         <br/>
-        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
-            <%= TaskTypesWrapper.TODAY.getValue() %>
-        </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TOMORROW %>')">
-            <%= TaskTypesWrapper.TOMORROW.getValue() %>
-        </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.SOMEDAY %>')">
-            <%= TaskTypesWrapper.SOMEDAY.getValue() %>
-        </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.COMPLETE %>')">
-            <%= TaskTypesWrapper.COMPLETE.getValue() %>
-        </a>&nbsp;
-        <a href="JavaScript:sendForm('<%= TaskTypesWrapper.RECYCLE_BIN %>')">
-            <%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>
-        </a>&nbsp;
-        <br/>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Tasks</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
+                                <%= TaskTypesWrapper.TODAY.getValue() %>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TOMORROW %>')">
+                                <%= TaskTypesWrapper.TOMORROW.getValue() %>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="JavaScript:sendForm('<%= TaskTypesWrapper.SOMEDAY %>')">
+                                <%= TaskTypesWrapper.SOMEDAY.getValue() %>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="JavaScript:sendForm('<%= TaskTypesWrapper.COMPLETE %>')">
+                                <%= TaskTypesWrapper.COMPLETE.getValue() %>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="JavaScript:sendForm('<%= TaskTypesWrapper.RECYCLE_BIN %>')">
+                                <%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">You enter as: ${user.name}</a></li>
+                    <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
         <br/>
 
         <h4><c:out value="${taskType.value}"/>
@@ -49,7 +75,7 @@
                 <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
             </c:when>
             <c:otherwise>
-                <table border="1">
+                <table class="table table-hover">
                     <tr>
                         <th>Select</th>
                         <th>Name</th>
@@ -85,24 +111,29 @@
             </c:otherwise>
         </c:choose>
         <br/>
-        <c:if test="${taskType.buttonAdd}">
-            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
-        </c:if>
-        <%--<c:if test="${taskType.buttonEdit}">--%>
-            <%--<a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;--%>
-        <%--</c:if>--%>
-        <c:if test="${taskType.buttonComplete}">
-            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
-        </c:if>
-        <c:if test="${taskType.buttonRestore}">
-            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
-        </c:if>
-        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
-        <c:if test="${taskType.buttonRemoveAll}">
-            <a href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
-        </c:if>
+        <div class="btn-group">
+            <c:if test="${taskType.buttonAdd}">
+                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
+            </c:if>
+            <%--<c:if test="${taskType.buttonEdit}">--%>
+                <%--<a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;--%>
+            <%--</c:if>--%>
+            <c:if test="${taskType.buttonComplete}">
+                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
+            </c:if>
+            <c:if test="${taskType.buttonRestore}">
+                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
+            </c:if>
+            <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
+            <c:if test="${taskType.buttonRemoveAll}">
+                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
+            </c:if>
+        </div>
         <br/>
-        <%@ include file="footer.jsp"%>
+        <%--<%@ include file="footer.jsp"%>--%>
     </form>
+</div>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
