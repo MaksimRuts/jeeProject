@@ -9,6 +9,7 @@ import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,6 +26,16 @@ public class ManageTaskController extends AbstractController {
             for (Task task : tasks) {
                 taskDao.delete(task);
             }
+        } else if (ControllerConst.Actions.REMOVE_FILE.equals(action)) {
+            int taskId = Integer.parseInt(req.getParameter(ControllerConst.Fields.TASK_ID));
+            Task task = taskDao.read(user.getId(), taskId);
+            new File(getServletContext().getRealPath(getServletContext().getContextPath())
+                    + "uploaded\\"
+                    + task.getFilename())
+                    .delete();
+            task.setFilename("");
+            // TODO ??
+            taskDao.update(task);
         } else {
             TaskTypesWrapper taskType = (TaskTypesWrapper) req.getSession().getAttribute(ControllerConst.Fields.TASK_TYPE);
             String[] tasksId = req.getParameterValues(ControllerConst.Fields.SELECT);

@@ -21,8 +21,6 @@
     <form name="taskForm" action="action" method="post">
         <input type=hidden name="action" value="">
         <input type=hidden name = "taskId" id="taskId" value="">
-        <%@ include file="header.jsp" %>
-        <br/>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -91,7 +89,7 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${taskType.buttonEdit}">
-                                        <a href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.EDIT %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="name"/></a>&nbsp;
+                                        <a class="btn btn-link" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.EDIT %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="name"/></a>
                                     </c:when>
                                     <c:otherwise>
                                         <jsp:getProperty name="task" property="name"/>
@@ -103,7 +101,10 @@
                                 <td><jsp:getProperty name="task" property="dateEnding"/></td>
                             </c:if>
                             <td>
-                                <a href="/uploaded/<jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                                <c:if test="${not empty task.filename}">
+                                    <a class="btn btn-link" href="/uploaded/<jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                                    <a class="btn btn-sm btn-info" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.REMOVE_FILE %>', '<jsp:getProperty name="task" property="id"/>')">Delete</a>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -115,9 +116,6 @@
             <c:if test="${taskType.buttonAdd}">
                 <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
             </c:if>
-            <%--<c:if test="${taskType.buttonEdit}">--%>
-                <%--<a href="JavaScript:sendForm('<%= ControllerConst.Actions.EDIT %>')">Edit</a>&nbsp;--%>
-            <%--</c:if>--%>
             <c:if test="${taskType.buttonComplete}">
                 <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
             </c:if>
@@ -130,7 +128,6 @@
             </c:if>
         </div>
         <br/>
-        <%--<%@ include file="footer.jsp"%>--%>
     </form>
 </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>

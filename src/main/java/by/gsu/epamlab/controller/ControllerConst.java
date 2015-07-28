@@ -66,6 +66,7 @@ public class ControllerConst {
         public static final String CONFIRM = "confirm";
         public static final String RESTORE = "restore";
         public static final String REMOVE_ALL = "removeAll";
+        public static final String REMOVE_FILE = "removeFile";
     }
 
     public static class Errors {

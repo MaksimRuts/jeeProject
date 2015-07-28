@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Add task</title>
-    <script type="text/javascript" src="resources/js/script.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
     <form name="taskForm" method="post" action="editTask" enctype="multipart/form-data">

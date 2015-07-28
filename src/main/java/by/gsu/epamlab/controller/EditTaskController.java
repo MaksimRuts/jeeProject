@@ -26,6 +26,9 @@ public class EditTaskController extends AbstractController {
             String description = getParameter(ControllerConst.Fields.TASK_DESCRIPTION);
             String tasksId = getParameter(ControllerConst.Fields.SELECT);
 
+            // todo добавить сохранение файла
+            // todo (если файл есть - то редактируем, если нет - добавляем)
+
             validateField(name);
             validateField(date);
             validateField(description);
