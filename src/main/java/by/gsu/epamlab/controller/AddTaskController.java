@@ -4,6 +4,7 @@ import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.exceptions.ValidationException;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
+import by.gsu.epamlab.requestparser.FileManagement;
 import by.gsu.epamlab.requestparser.RequestBody;
 import by.gsu.epamlab.requestparser.RequestParser;
 import by.gsu.epamlab.requestparser.UploadedFile;
@@ -20,7 +21,6 @@ public class AddTaskController extends AbstractController {
     protected void performLogic(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestBody request = RequestParser.parse(req);
         String action = request.getParameter(ControllerConst.Actions.ACTION);
-
 
         if (action != null) {
             HttpSession session = req.getSession();
@@ -46,15 +46,15 @@ public class AddTaskController extends AbstractController {
                     }
                 }
 
-                String destination = getServletContext().getRealPath(getServletContext().getContextPath());
-
-                // todo
-                boolean loaded = file.saveFile(destination + "uploaded\\");
-
                 task.setName(name);
                 task.setDescription(description);
                 task.setUserId(user.getId());
-                task.setFilename(file.getFilename());
+
+                if (file != null) {
+                    // todo проверять корректность сохранения
+                    FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()));
+                    task.setFilename(file.getFilename());
+                }
 
                 AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
                         .getTaskDao()

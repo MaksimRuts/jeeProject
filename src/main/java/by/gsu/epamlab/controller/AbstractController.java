@@ -3,6 +3,7 @@ package by.gsu.epamlab.controller;
 import by.gsu.epamlab.model.exceptions.ValidationException;
 import by.gsu.epamlab.requestparser.RequestBody;
 import by.gsu.epamlab.requestparser.RequestParser;
+import by.gsu.epamlab.requestparser.UploadedFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -66,6 +67,14 @@ public abstract class AbstractController extends HttpServlet {
             return request.getParameter(name);
         } else {
             return this.req.getParameter(name);
+        }
+    }
+
+    protected UploadedFile getFile(String name) {
+        if (isMultipart) {
+            return request.getFile(name);
+        } else {
+            return null;
         }
     }
 }

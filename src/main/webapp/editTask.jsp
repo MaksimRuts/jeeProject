@@ -17,7 +17,7 @@
         <input type=hidden name="action" value="">
         <%@ include file="header.jsp" %>
         <h3>Edit task</h3>
-        <input type="hidden" name="select" value="<jsp:getProperty name="task" property="id"/>">
+        <input type="hidden" id="taskId" name="taskId" value="<jsp:getProperty name="task" property="id"/>">
         <table>
             <tr>
                 <td><label for="taskNameId">Name</label></td>
@@ -30,6 +30,18 @@
             <tr>
                 <td><label for="taskDescriptionId">Description</label></td>
                 <td><textarea name="taskDescription" id="taskDescriptionId"><jsp:getProperty name="task" property="description"/></textarea></td>
+            </tr>
+            <tr>
+                <c:choose>
+                    <c:when test="${not empty task.filename}">
+                        <a class="btn btn-link" href="<%= ControllerConst.Fields.FILE_PATH %><jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                        <a class="btn btn-sm btn-info" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.REMOVE_FILE %>', '<jsp:getProperty name="task" property="id"/>')">Delete</a>
+                    </c:when>
+                    <c:otherwise>
+                        <td><label for="taskFileId">File</label></td>
+                        <td><input type="file" name="file" id="taskFileId"/></td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </table>
         <a href="JavaScript:sendForm('<%= ControllerConst.Actions.CONFIRM %>')">Confirm</a>&nbsp;

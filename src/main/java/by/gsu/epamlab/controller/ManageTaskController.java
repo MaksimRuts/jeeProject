@@ -5,6 +5,7 @@ import by.gsu.epamlab.model.beans.TaskTypes;
 import by.gsu.epamlab.model.beans.User;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
+import by.gsu.epamlab.requestparser.FileManagement;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +30,9 @@ public class ManageTaskController extends AbstractController {
         } else if (ControllerConst.Actions.REMOVE_FILE.equals(action)) {
             int taskId = Integer.parseInt(req.getParameter(ControllerConst.Fields.TASK_ID));
             Task task = taskDao.read(user.getId(), taskId);
-            new File(getServletContext().getRealPath(getServletContext().getContextPath())
-                    + "uploaded\\"
-                    + task.getFilename())
-                    .delete();
+            String path = ControllerConst.FilePath.getAbsolutePath(getServletContext());
+            FileManagement.deleteFile(task.getFilename(), path);
             task.setFilename("");
-            // TODO ??
             taskDao.update(task);
         } else {
             TaskTypesWrapper taskType = (TaskTypesWrapper) req.getSession().getAttribute(ControllerConst.Fields.TASK_TYPE);

@@ -3,6 +3,9 @@ package by.gsu.epamlab.controller;
 import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+
 public class ControllerConst {
     // TODO прикрутить инициализацию с параметров сервлета
     public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
@@ -33,15 +36,9 @@ public class ControllerConst {
         public static final String LOGIN = "login";
         public static final String PASSWORD = "password";
         public static final String NAME = "name";
-        public static final String USERNAME = "username";
         public static final String ERROR_MESSAGE = "errorMessage";
-        public static final String INFO_MESSAGE = "infoMessage";
         public static final String USER = "user";
         public static final String TASK_TYPE = "taskType";
-        public static final String TASK_TYPE_VALUE = "taskTypeValue";
-        public static final String BUTTON_COMPLETE = "buttonComplete";
-        public static final String BUTTON_ADD = "buttonAdd";
-        public static final String WITH_DATE = "withDate";
         public static final String TASKS_LIST = "tasksList";
         public static final String SELECT = "select";
         public static final String TASK = "task";
@@ -49,9 +46,9 @@ public class ControllerConst {
         public static final String TASK_DATE = "taskDate";
         public static final String TASK_DESCRIPTION = "taskDescription";
         public static final String BACK_PAGE = "backPage";
-        public static final String DATE = "date";
         public static final String TASK_ID = "taskId";
         public static final String FILE = "file";
+        public static final String FILE_PATH = '/' + FilePath.UPLOAD_RELATIVE_PATH + '/';
     }
 
     public static class Actions {
@@ -80,6 +77,14 @@ public class ControllerConst {
     public static class Messages {
         public static final String NOTES_LIST_EMPTY = "This notes list is empty";
         public static final String REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
+    }
+
+    public static class FilePath {
+        public static final String UPLOAD_RELATIVE_PATH = "uploaded";
+
+        public static String getAbsolutePath(ServletContext context) {
+            return context.getRealPath(context.getContextPath()) + UPLOAD_RELATIVE_PATH;
+        }
     }
 }
 

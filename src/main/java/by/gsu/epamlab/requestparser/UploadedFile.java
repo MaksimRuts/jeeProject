@@ -25,40 +25,4 @@ public class UploadedFile {
     public void setContent(List<byte[]> content) {
         this.content = content;
     }
-
-    public boolean saveFile(String filePath) {
-        StringBuilder path = new StringBuilder();
-        path.append(filePath).append(filename);
-        FileOutputStream fileOutputStream = null;
-        BufferedWriter writer = null;
-        try {
-            fileOutputStream = new FileOutputStream(new File(path.toString()));
-            writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-            for (byte[] arr : content) {
-                fileOutputStream.write(arr);
-            }
-            return true;
-        } catch (FileNotFoundException e) {
-            return false;
-        } catch (IOException e) {
-            return false;
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    // TODO
-                    e.printStackTrace();
-                }
-            }
-            if (fileOutputStream != null) {
-                try {
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    // TODO
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }
