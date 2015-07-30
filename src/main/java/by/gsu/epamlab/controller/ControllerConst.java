@@ -75,7 +75,7 @@ public class ControllerConst {
     }
 
     public static class Messages {
-        public static final String NOTES_LIST_EMPTY = "This notes list is empty";
+        public static final String NOTES_LIST_EMPTY = "You don't have tasks for ";
         public static final String REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
     }
 

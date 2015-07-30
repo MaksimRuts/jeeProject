@@ -9,9 +9,24 @@ public enum TaskTypesWrapper {
     TODAY(TaskTypes.TODAY, false, true, true, true, false, false),
     TOMORROW(TaskTypes.TOMORROW, false, true, true, true, false, false),
     SOMEDAY(TaskTypes.SOMEDAY, true, true, true, true, false, false),
-    COMPLETE(TaskTypes.COMPLETE, true, false, false, false, false, false),
-    RECYCLE_BIN(TaskTypes.RECYCLE_BIN, true, false, false, false, true, true),
-    ALL(TaskTypes.ALL, true, true, false, false, false, false);
+    COMPLETE(TaskTypes.COMPLETE, true, false, false, false, false, false) {
+        @Override
+        public String getEmptyMessage() {
+            return "You don't have completed tasks";
+        }
+    },
+    RECYCLE_BIN(TaskTypes.RECYCLE_BIN, true, false, false, false, true, true) {
+        @Override
+        public String getEmptyMessage() {
+            return "You don't have removed tasks";
+        }
+    },
+    ALL(TaskTypes.ALL, true, true, false, false, false, false) {
+        @Override
+        public String getEmptyMessage() {
+            return "You don't have tasks, You are lucky!";
+        }
+    };
 
     private TaskTypes type;
     private boolean isDateShow;
@@ -65,5 +80,9 @@ public enum TaskTypesWrapper {
 
     public boolean isButtonRemoveAll() {
         return isButtonRemoveAll;
+    }
+
+    public String getEmptyMessage() {
+        return "You don't have tasks for " + getValue().toLowerCase();
     }
 }

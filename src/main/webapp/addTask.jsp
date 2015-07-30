@@ -9,36 +9,59 @@
 <head>
     <title>Add task</title>
     <script type="text/javascript" src="js/script.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form name="taskForm" method="post" action="addTask" enctype="multipart/form-data">
+<div class="container">
+    <form name="taskForm" role="form" method="post" action="addTask" enctype="multipart/form-data">
         <input type=hidden name="action" value="">
-        <%@ include file="header.jsp" %>
-        <h3>Add new task for <c:out value="${taskType.value}"/></h3>
-        <table>
-            <tr>
-                <td><label for="taskNameId">Name</label></td>
-                <td><input name="taskName" id="taskNameId" value=""></td>
-            </tr>
-            <c:if test="${taskType.dateShow}">
-                <tr>
-                    <td><label for="taskDateExId">Expiration date</label></td>
-                    <td><input name="taskDate" id="taskDateExId" value=""></td>
-                </tr>
-            </c:if>
-            <tr>
-                <td><label for="taskDescriptionId">Description</label></td>
-                <td><textarea name="taskDescription" id="taskDescriptionId"></textarea></td>
-            </tr>
-            <tr>
-                <td><label for="taskFileId">File</label></td>
-                <td><input type="file" name="file" id="taskFileId"/></td>
-            </tr>
-        </table>
-        <a href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
-        <a href="tasks">Return to tasks page</a>
-        <%@ include file="footer.jsp"%>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Tasks</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">You enter as: ${user.name}</a></li>
+                    <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="panel panel-heading">
+            <h4>Add task for <c:out value="${taskType.value}"/></h4>
+        </div>
+        <div class="panel panel-body">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <div class="">
+                        <label for="taskNameId">Name</label>
+                        <input name="taskName" class="form-control" id="taskNameId" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <c:if test="${taskType.dateShow}">
+                        <label for="taskDateExId">Expiration date</label>
+                        <input name="taskDate" class="form-control" id="taskDateExId" value="">
+                    </c:if>
+                </div>
+                <div class="form-group">
+                    <label for="taskFileId">File</label>
+                    <input type="file" name="file" id="taskFileId"/>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label for="taskDescriptionId">Description</label>
+                    <textarea name="taskDescription" class="form-control" rows="8" id="taskDescriptionId"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
+            <a class="btn btn-default" href="tasks">Back</a>
+        </div>
     </form>
-
+</div>
 </body>
 </html>

@@ -9,16 +9,15 @@
 
 <html>
 <head>
-    <title>Notes</title>
-    <style>
-        <%@ include file="css/login.css"%>
-    </style>
+    <title>Tasks</title>
     <script type="text/javascript" src="js/script.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <form name="taskForm" action="action" method="post">
+    <form name="taskForm" action="action" method="post" role="form">
         <input type=hidden name="action" value="">
         <input type=hidden name = "taskId" id="taskId" value="">
         <nav class="navbar navbar-inverse">
@@ -61,57 +60,57 @@
                 </ul>
             </div>
         </nav>
-        <br/>
-
-        <h4><c:out value="${taskType.value}"/>
-            <c:if test="${not empty taskType.date}">
-                    <c:out value=" (${taskType.date})"/>
-            </c:if>
-        </h4>
-        <c:choose>
-            <c:when test="${empty tasksList}">
-                <%= ControllerConst.Messages.NOTES_LIST_EMPTY %><br/>
-            </c:when>
-            <c:otherwise>
-                <table class="table table-hover">
-                    <tr>
-                        <th>Select</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <c:if test="${taskType.dateShow}">
-                            <th>Expiration date</th>
-                        </c:if>
-                        <th>File</th>
-                    </tr>
-                    <c:forEach items="${tasksList}" var="task">
+        <div class="panel panel-heading">
+            <h4><c:out value="${taskType.value}"/>
+                <c:if test="${not empty taskType.date}">
+                        <c:out value=" (${taskType.date})"/>
+                </c:if>
+            </h4>
+        </div>
+        <div class="panel panel-body">
+            <c:choose>
+                <c:when test="${empty tasksList}">
+                    <c:out value="${taskType.emptyMessage}"/>
+                </c:when>
+                <c:otherwise>
+                    <table class="table table-hover">
                         <tr>
-                            <td><input type="checkbox" name="select" value="<jsp:getProperty name="task" property="id"/>"></td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${taskType.buttonEdit}">
-                                        <a class="btn btn-link" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.EDIT %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="name"/></a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <jsp:getProperty name="task" property="name"/>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td><jsp:getProperty name="task" property="description"/></td>
+                            <th>Name</th>
+                            <th>Description</th>
                             <c:if test="${taskType.dateShow}">
-                                <td><jsp:getProperty name="task" property="dateEnding"/></td>
+                                <th>Expiration date</th>
                             </c:if>
-                            <td>
-                                <c:if test="${not empty task.filename}">
-                                    <a class="btn btn-link" href="<%= ControllerConst.Fields.FILE_PATH %><jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
-                                    <a class="btn btn-sm btn-info" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.REMOVE_FILE %>', '<jsp:getProperty name="task" property="id"/>')">Delete</a>
-                                </c:if>
-                            </td>
+                            <th>File</th>
                         </tr>
-                    </c:forEach>
-                </table>
-            </c:otherwise>
-        </c:choose>
-        <br/>
+                        <c:forEach items="${tasksList}" var="task">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="select<jsp:getProperty name="task" property="id"/>" name="select" value="<jsp:getProperty name="task" property="id"/>">
+                                    <c:choose>
+                                        <c:when test="${taskType.buttonEdit}">
+                                            <a class="btn btn-link" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.EDIT %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="name"/></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <label class="btn" for="select<jsp:getProperty name="task" property="id"/>"><jsp:getProperty name="task" property="name"/></label>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td><jsp:getProperty name="task" property="description"/></td>
+                                <c:if test="${taskType.dateShow}">
+                                    <td><jsp:getProperty name="task" property="dateEnding"/></td>
+                                </c:if>
+                                <td>
+                                    <c:if test="${not empty task.filename}">
+                                        <a class="btn btn-link" href="<%= ControllerConst.Fields.FILE_PATH %><jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                                        <a class="btn btn-sm btn-info" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.REMOVE_FILE %>', '<jsp:getProperty name="task" property="id"/>')">Delete</a>
+                                    </c:if>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="btn-group">
             <c:if test="${taskType.buttonAdd}">
                 <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
@@ -127,10 +126,8 @@
                 <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
             </c:if>
         </div>
-        <br/>
     </form>
 </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

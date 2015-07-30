@@ -14,28 +14,28 @@
 <body>
     <div class="container">
         <form action="login" method="post" role="form" class="form-horizontal">
-            <div class="form-group text-center">
-                <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="form-group text-center">
                     <h3>Login to system</h3>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="form-group">
                     <input class="form-control" type="text" id="login_field" value="" required="required" placeholder="Login" name="<%= ControllerConst.Fields.LOGIN %>">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="form-group">
                     <input class="form-control" type="password" id="password_field" value="" required="required" placeholder="Password" name="<%= ControllerConst.Fields.PASSWORD %>">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="form-group">
                     <button class="btn btn-default col-sm-12" name="<%= ControllerConst.Actions.ACTION %>" value="<%= ControllerConst.Actions.LOGIN %>">Login</button>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-4">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="form-group">
                     <a class="btn btn-default col-sm-12" href="<%= ControllerConst.Pages.REGISTRATION %>">Register new user</a>
                 </div>
             </div>

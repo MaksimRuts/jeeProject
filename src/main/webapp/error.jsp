@@ -4,29 +4,34 @@
 <html>
 <head>
     <title>Error page</title>
-    <style>
-        <%@ include file="css/login.css"%>
-    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="registration_panel">
-        <h3>Error</h3>
-        <div class="registration_field">
-            <c:choose>
-                <c:when test="${not empty errorMessage}">
-                    <c:out value="${errorMessage}"/>
-                </c:when>
-                <c:otherwise>
-                    <c:out value="<%= ControllerConst.Errors.UNSUPPORTED %>"/>
-                </c:otherwise>
-            </c:choose>
+    <div class="container">
+        <div class="col-sm-offset-4 col-sm-4 panel panel-warning">
+            <div class="text-danger text-center ">
+                <h3>Error</h3>
+            </div>
+            <div class="text-danger text-center">
+                <c:choose>
+                    <c:when test="${not empty errorMessage}">
+                        <c:out value="${errorMessage}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="<%= ControllerConst.Errors.UNSUPPORTED %>"/>
+                    </c:otherwise>
+                </c:choose>
+
+            </div>
             <br/>
             <c:choose>
                 <c:when test="${not empty backPage}">
-                    <a href="${backPage}">Back</a>
+                    <a class="btn btn-default col-sm-8 col-sm-offset-2" href="${backPage}">Back</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="logout">Back to login page</a>
+                    <a class="btn btn-default col-sm-8 col-sm-offset-2" href="logout">Back to login page</a>
                 </c:otherwise>
             </c:choose>
         </div>
