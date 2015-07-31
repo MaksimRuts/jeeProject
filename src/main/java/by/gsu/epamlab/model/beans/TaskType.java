@@ -3,7 +3,7 @@ package by.gsu.epamlab.model.beans;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public enum TaskTypes {
+public enum TaskType {
     TODAY("Today", false, false) {
         @Override
         public Date getDateHigher() {
@@ -48,7 +48,7 @@ public enum TaskTypes {
     private boolean isCompleted;
     private boolean isDeleted;
 
-    private TaskTypes(String value, boolean isCompleted, boolean isDeleted) {
+    private TaskType(String value, boolean isCompleted, boolean isDeleted) {
         this.value = value;
         this.isCompleted = isCompleted;
         this.isDeleted = isDeleted;

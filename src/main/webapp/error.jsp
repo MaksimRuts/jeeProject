@@ -26,14 +26,10 @@
 
             </div>
             <br/>
-            <c:choose>
-                <c:when test="${not empty backPage}">
-                    <a class="btn btn-default col-sm-8 col-sm-offset-2" href="${backPage}">Back</a>
-                </c:when>
-                <c:otherwise>
-                    <a class="btn btn-default col-sm-8 col-sm-offset-2" href="logout">Back to login page</a>
-                </c:otherwise>
-            </c:choose>
+            <c:if test="${not empty backPage}">
+                <a class="btn btn-default col-sm-8 col-sm-offset-2" href="${backPage}">Back</a>
+            </c:if>
+            <a class="btn btn-default col-sm-8 col-sm-offset-2" href="logout">Back to login page</a>
         </div>
     </div>
 </body>

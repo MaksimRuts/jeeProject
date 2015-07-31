@@ -32,13 +32,20 @@ public abstract class AbstractController extends HttpServlet {
         getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
-    protected void jumpToError(String message, String backPage,
+    protected void jumpToError(String message,
                                HttpServletRequest req,
                                HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute(ControllerConst.Fields.ERROR_MESSAGE, message);
-        req.setAttribute(ControllerConst.Fields.BACK_PAGE, backPage);
         jumpTo(ControllerConst.Pages.ERROR, req, resp);
+    }
+
+    protected void jumpToError(String message, String backPage,
+                               HttpServletRequest req,
+                               HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.setAttribute(ControllerConst.Fields.BACK_PAGE, backPage);
+        jumpToError(ControllerConst.Pages.ERROR, req, resp);
     }
 
     protected void redirectTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

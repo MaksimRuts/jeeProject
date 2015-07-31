@@ -1,6 +1,6 @@
 package by.gsu.epamlab.model.daoimpl.memory;
 
-import by.gsu.epamlab.model.beans.TaskTypes;
+import by.gsu.epamlab.model.beans.TaskType;
 import by.gsu.epamlab.model.beans.Task;
 import by.gsu.epamlab.model.dao.ITaskDao;
 import by.gsu.epamlab.model.exceptions.DataSourceException;
@@ -60,7 +60,7 @@ public class TaskDaoMemory implements ITaskDao {
     }
 
     @Override
-    public List<Task> getAll(int userId, TaskTypes taskType) {
+    public List<Task> getAll(int userId, TaskType taskType) {
         List<Task> tasks = new ArrayList<Task>(notes.get(userId).values());
         ListIterator iterator = tasks.listIterator();
         while (iterator.hasNext()) {
@@ -77,7 +77,7 @@ public class TaskDaoMemory implements ITaskDao {
 
     @Override
     public List<Task> getAll(int userId) {
-        return getAll(userId, TaskTypes.ALL);
+        return getAll(userId, TaskType.ALL);
     }
 
     static {

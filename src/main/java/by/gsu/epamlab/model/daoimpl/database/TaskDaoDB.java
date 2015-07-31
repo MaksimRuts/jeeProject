@@ -1,7 +1,7 @@
 package by.gsu.epamlab.model.daoimpl.database;
 
 import by.gsu.epamlab.model.beans.Task;
-import by.gsu.epamlab.model.beans.TaskTypes;
+import by.gsu.epamlab.model.beans.TaskType;
 import by.gsu.epamlab.model.connection.ConnectionManager;
 import by.gsu.epamlab.model.connection.DataBaseConstants;
 import by.gsu.epamlab.model.dao.ITaskDao;
@@ -128,25 +128,18 @@ public class TaskDaoDB implements ITaskDao {
 
     @Override
     public List<Task> getAll(int userId) {
-        return getAll(userId, TaskTypes.ALL);
+        return getAll(userId, TaskType.ALL);
     }
 
     @Override
-    public List<Task> getAll(int userId, TaskTypes taskType) {
+    public List<Task> getAll(int userId, TaskType taskType) {
         List<Task> tasks = new ArrayList<Task>();
         Connection con = ConnectionManager.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        Date date = taskType.getDateBelow();
-
         try{
-            stmt = con.prepareStatement(DataBaseConstants.Queries.SELECT_TASKS_BY_TYPES_AND_DATA);
-            stmt.setInt(1, userId);
-            stmt.setBoolean(2, taskType.isCompleted());
-            stmt.setBoolean(3, taskType.isDeleted());
-            stmt.setDate(4, taskType.getDateHigher());
-            stmt.setDate(5, taskType.getDateBelow());
+            stmt = StatementFactory.getInstanceForTasks(taskType, userId, con);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

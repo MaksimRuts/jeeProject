@@ -30,9 +30,9 @@ public class LoginController extends AbstractController {
                 req.getSession(true).setAttribute(ControllerConst.Fields.USER, user);
                 jumpTo(ControllerConst.Controllers.ACTION, req, resp);
             } catch (DataSourceException e) {
-                jumpToError(ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD, ControllerConst.Pages.LOGIN, req, resp);
+                jumpToError(ControllerConst.Errors.INVALID_LOGIN_OR_PASSWORD, req, resp);
             } catch (ValidationException e) {
-                jumpToError(ControllerConst.Errors.EMPTY_FIELDS, ControllerConst.Pages.LOGIN, req, resp);
+                jumpToError(ControllerConst.Errors.EMPTY_FIELDS, req, resp);
             }
         } else {
             jumpTo(ControllerConst.Pages.LOGIN, req, resp);

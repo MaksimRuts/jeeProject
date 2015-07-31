@@ -1,34 +1,34 @@
 package by.gsu.epamlab.controller;
 
-import by.gsu.epamlab.model.beans.TaskTypes;
+import by.gsu.epamlab.model.beans.TaskType;
 
 import java.sql.Date;
 
 public enum TaskTypesWrapper {
 
-    TODAY(TaskTypes.TODAY, false, true, true, true, false, false),
-    TOMORROW(TaskTypes.TOMORROW, false, true, true, true, false, false),
-    SOMEDAY(TaskTypes.SOMEDAY, true, true, true, true, false, false),
-    COMPLETE(TaskTypes.COMPLETE, true, false, false, false, false, false) {
+    TODAY(TaskType.TODAY, false, true, true, true, false, false),
+    TOMORROW(TaskType.TOMORROW, false, true, true, true, false, false),
+    SOMEDAY(TaskType.SOMEDAY, true, true, true, true, false, false),
+    COMPLETE(TaskType.COMPLETE, true, false, false, false, false, false) {
         @Override
         public String getEmptyMessage() {
             return "You don't have completed tasks";
         }
     },
-    RECYCLE_BIN(TaskTypes.RECYCLE_BIN, true, false, false, false, true, true) {
+    RECYCLE_BIN(TaskType.RECYCLE_BIN, true, false, false, false, true, true) {
         @Override
         public String getEmptyMessage() {
             return "You don't have removed tasks";
         }
     },
-    ALL(TaskTypes.ALL, true, true, false, false, false, false) {
+    ALL(TaskType.ALL, true, true, false, false, false, false) {
         @Override
         public String getEmptyMessage() {
             return "You don't have tasks, You are lucky!";
         }
     };
 
-    private TaskTypes type;
+    private TaskType type;
     private boolean isDateShow;
     private boolean isButtonComplete;
     private boolean isButtonAdd;
@@ -36,7 +36,7 @@ public enum TaskTypesWrapper {
     private boolean isButtonRestore;
     private boolean isButtonRemoveAll;
 
-    TaskTypesWrapper(TaskTypes type, boolean isDateShow, boolean isButtonComplete, boolean isButtonAdd, boolean isButtonEdit, boolean isButtonRestore, boolean isButtonRemoveAll) {
+    TaskTypesWrapper(TaskType type, boolean isDateShow, boolean isButtonComplete, boolean isButtonAdd, boolean isButtonEdit, boolean isButtonRestore, boolean isButtonRemoveAll) {
         this.type = type;
         this.isDateShow = isDateShow;
         this.isButtonComplete = isButtonComplete;
@@ -46,7 +46,7 @@ public enum TaskTypesWrapper {
         this.isButtonRemoveAll = isButtonRemoveAll;
     }
 
-    public TaskTypes getType() {
+    public TaskType getType() {
         return type;
     }
 

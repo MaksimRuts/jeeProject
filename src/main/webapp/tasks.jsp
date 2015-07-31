@@ -115,15 +115,17 @@
             <c:if test="${taskType.buttonAdd}">
                 <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.ADD %>')">Add</a>&nbsp;
             </c:if>
-            <c:if test="${taskType.buttonComplete}">
-                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
-            </c:if>
-            <c:if test="${taskType.buttonRestore}">
-                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
-            </c:if>
-            <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
-            <c:if test="${taskType.buttonRemoveAll}">
-                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
+            <c:if test="${not empty tasksList}">
+                <c:if test="${taskType.buttonComplete}">
+                    <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.COMPLETE %>')">Complete</a>&nbsp;
+                </c:if>
+                <c:if test="${taskType.buttonRestore}">
+                    <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.RESTORE %>')">Restore</a>&nbsp;
+                </c:if>
+                <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE %>')">Remove</a>&nbsp;
+                <c:if test="${taskType.buttonRemoveAll}">
+                    <a class="btn btn-default" href="JavaScript:sendForm('<%= ControllerConst.Actions.REMOVE_ALL %>')">Remove all</a>&nbsp;
+                </c:if>
             </c:if>
         </div>
     </form>
