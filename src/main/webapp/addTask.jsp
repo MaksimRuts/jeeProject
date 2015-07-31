@@ -12,6 +12,22 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script>
+        $(function() {
+            $("#taskDateExId").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "0:+2",
+                minDate: "+2",
+                defaultDate: "+2",
+                dateFormat: 'yy-mm-dd'
+            })
+        });
+    </script>
 </head>
 <body>
 <div class="container">
