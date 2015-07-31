@@ -47,7 +47,7 @@
             </div>
         </nav>
         <div class="panel panel-heading">
-            <h4>Add task for <c:out value="${taskType.value}"/></h4>
+            <h4>Edit task for <c:out value="${taskType.value}"/></h4>
         </div>
         <div class="panel panel-body">
             <div class="col-sm-4">
