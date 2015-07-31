@@ -4,9 +4,6 @@
 <html>
 <head>
     <title>Login</title>
-    <%--<style>--%>
-        <%--<%@ include file="css/login.css"%>--%>
-    <%--</style>--%>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
