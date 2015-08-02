@@ -15,7 +15,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </head>
-<body onload="addClass('<c:out value="${taskType.value}"/>', ' active');">
+<body onload="addClass('<c:out value="${taskType.value}"/>', 'active');">
 <div class="container">
     <form name="taskForm" action="action" method="post" role="form">
         <input type=hidden name="action" value="">
@@ -23,7 +23,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Tasks</a>
+                    <a class="navbar-brand" href="action">Tasks</a>
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
@@ -55,7 +55,7 @@
                     </ul>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">You enter as: ${user.name}</a></li>
+                    <li><a href="action">You enter as: ${user.name}</a></li>
                     <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>

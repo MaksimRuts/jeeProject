@@ -30,6 +30,7 @@ public abstract class AbstractController extends HttpServlet {
 
     protected void jumpTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(page).forward(req, resp);
+        return;
     }
 
     protected void jumpToError(String message,
@@ -45,11 +46,12 @@ public abstract class AbstractController extends HttpServlet {
                                HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute(ControllerConst.Fields.BACK_PAGE, backPage);
-        jumpToError(ControllerConst.Pages.ERROR, req, resp);
+        jumpToError(message, req, resp);
     }
 
     protected void redirectTo(String page, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect(page);
+        return;
     }
 
     protected void validateField(String field) {

@@ -20,8 +20,8 @@ public class UserValidationFilter implements Filter {
         HttpSession session = ((HttpServletRequest)servletRequest).getSession();
         User user = (User) session.getAttribute(ControllerConst.Fields.USER);
         if (user == null) {
-            session.invalidate();
-            ((HttpServletResponse)servletResponse).sendRedirect(ControllerConst.Pages.LOGIN);
+            servletRequest.getRequestDispatcher(ControllerConst.Controllers.LOGOUT).forward(servletRequest, servletResponse);
+            return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

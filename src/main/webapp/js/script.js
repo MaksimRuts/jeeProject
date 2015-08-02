@@ -14,5 +14,5 @@ function sendFormWithTaskId(ref, id) {
 
 function addClass(element, className) {
     d = document.getElementById(element);
-    d.className += className;
+    d.classList.add(className);
 }

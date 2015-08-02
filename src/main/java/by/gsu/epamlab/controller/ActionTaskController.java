@@ -33,7 +33,7 @@ public class ActionTaskController extends AbstractController {
             }
             jumpTo(page, req, resp);
         } else {
-            jumpToError(ExceptionConstants.Messages.INVALID_ACTION, ControllerConst.Controllers.TASKS, req, resp);
+            jumpTo(ControllerConst.Controllers.TASKS, req, resp);
         }
     }
 }

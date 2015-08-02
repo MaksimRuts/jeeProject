@@ -35,7 +35,7 @@ public class LoginController extends AbstractController {
                 jumpToError(ControllerConst.Errors.EMPTY_FIELDS, req, resp);
             }
         } else {
-            jumpTo(ControllerConst.Pages.LOGIN, req, resp);
+            redirectTo(ControllerConst.Pages.LOGIN, req, resp);
         }
     }
 }
