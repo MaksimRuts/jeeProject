@@ -14,11 +14,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script>
-        window.onload = addClass(<c:out value="${taskType.value}"/>, ' active');
-    </script>
 </head>
-<body>
+<body onload="addClass('<c:out value="${taskType.value}"/>', ' active');">
 <div class="container">
     <form name="taskForm" action="action" method="post" role="form">
         <input type=hidden name="action" value="">
@@ -30,27 +27,27 @@
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li id="Today" class="active">
+                        <li id="<%= TaskTypesWrapper.TODAY.getValue() %>">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
                                 <%= TaskTypesWrapper.TODAY.getValue() %>
                             </a>
                         </li>
-                        <li>
+                        <li id="<%= TaskTypesWrapper.TOMORROW.getValue() %>">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TOMORROW %>')">
                                 <%= TaskTypesWrapper.TOMORROW.getValue() %>
                             </a>
                         </li>
-                        <li>
+                        <li id="<%= TaskTypesWrapper.SOMEDAY.getValue() %>">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.SOMEDAY %>')">
                                 <%= TaskTypesWrapper.SOMEDAY.getValue() %>
                             </a>
                         </li>
-                        <li>
+                        <li id="<%= TaskTypesWrapper.COMPLETE.getValue() %>">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.COMPLETE %>')">
                                 <%= TaskTypesWrapper.COMPLETE.getValue() %>
                             </a>
                         </li>
-                        <li>
+                        <li id="<%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.RECYCLE_BIN %>')">
                                 <%= TaskTypesWrapper.RECYCLE_BIN.getValue() %>
                             </a>
