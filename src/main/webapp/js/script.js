@@ -11,3 +11,13 @@ function sendFormWithTaskId(ref, id) {
     setTaskId(id);
     sendForm(ref);
 }
+
+//function addClass(element, classToAdd) {
+//    d = document.getElementById(element);
+//    d.className += classToAdd;
+//}
+
+function addClass() {
+    d = document.getElementById('Today');
+    d.className += ' active';
+}

@@ -37,7 +37,7 @@ public enum TaskType {
             return Date.valueOf(LocalDate.now().plusDays(SOMEDAY_DAY_OFFSET));
         }
     },
-    COMPLETE("Complete", true, false),
+    COMPLETED("Completed", true, false),
     RECYCLE_BIN("Recycle Bin", false, true),
     ALL("All", true, true);
 

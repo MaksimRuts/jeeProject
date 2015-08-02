@@ -9,7 +9,7 @@ public enum TaskTypesWrapper {
     TODAY(TaskType.TODAY, false, true, true, true, false, false),
     TOMORROW(TaskType.TOMORROW, false, true, true, true, false, false),
     SOMEDAY(TaskType.SOMEDAY, true, true, true, true, false, false),
-    COMPLETE(TaskType.COMPLETE, true, false, false, false, false, false) {
+    COMPLETE(TaskType.COMPLETED, true, false, false, false, false, false) {
         @Override
         public String getEmptyMessage() {
             return "You don't have completed tasks";

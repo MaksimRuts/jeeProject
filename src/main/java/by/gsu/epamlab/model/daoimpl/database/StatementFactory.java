@@ -21,7 +21,7 @@ public class StatementFactory {
                 stmt.setDate(4, taskType.getDateHigher());
                 stmt.setDate(5, taskType.getDateBelow());
                 break;
-            case COMPLETE:
+            case COMPLETED:
                 stmt = connection.prepareStatement(DataBaseConstants.Queries.SELECT_TASKS_BY_TYPES);
                 stmt.setBoolean(2, true);
                 stmt.setBoolean(3, false);

@@ -14,6 +14,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        window.onload = addClass(<c:out value="${taskType.value}"/>, ' active');
+    </script>
 </head>
 <body>
 <div class="container">
@@ -27,7 +30,7 @@
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li id="Today" class="active">
                             <a href="JavaScript:sendForm('<%= TaskTypesWrapper.TODAY %>')" >
                                 <%= TaskTypesWrapper.TODAY.getValue() %>
                             </a>
@@ -75,12 +78,18 @@
                 <c:otherwise>
                     <table class="table table-hover">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <c:if test="${taskType.dateShow}">
-                                <th>Expiration date</th>
-                            </c:if>
-                            <th>File</th>
+                            <th class="col-md-2">Name</th>
+                            <c:choose>
+                                <c:when test="${taskType.dateShow}">
+                                    <th class="col-md-5">Description</th>
+                                    <th class="col-md-2">Date</th>
+                                </c:when>
+                                <c:otherwise>
+                                    <th class="col-md-7">Description</th>
+                                </c:otherwise>
+                            </c:choose>
+                            <th class="col-md-3">File</th>
+
                         </tr>
                         <c:forEach items="${tasksList}" var="task">
                             <tr>
