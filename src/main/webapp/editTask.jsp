@@ -59,7 +59,7 @@
                 </div>
                 <div class="form-group">
                     <label for="taskDateExId">Expiration date</label>
-                    <input name="taskDate" class="form-control" id="taskDateExId" value="<jsp:getProperty name="task" property="dateEnding"/>">
+                    <input name="taskDate" class="form-control" id="taskDateExId" value="<jsp:getProperty name="task" property="dateEnding"/>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="taskFileId">File: </label>

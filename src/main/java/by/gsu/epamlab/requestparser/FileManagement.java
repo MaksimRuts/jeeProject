@@ -25,7 +25,6 @@ public class FileManagement {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    // TODO
                     e.printStackTrace();
                 }
             }
@@ -33,7 +32,6 @@ public class FileManagement {
                 try {
                     fileOutputStream.close();
                 } catch (IOException e) {
-                    // TODO
                     e.printStackTrace();
                 }
             }

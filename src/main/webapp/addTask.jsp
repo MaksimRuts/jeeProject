@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <c:if test="${taskType.dateShow}">
                         <label for="taskDateExId">Expiration date</label>
-                        <input name="taskDate" class="form-control" id="taskDateExId" value="">
+                        <input name="taskDate" class="form-control" id="taskDateExId" value="" readonly>
                     </c:if>
                 </div>
                 <div class="form-group">

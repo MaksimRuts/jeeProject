@@ -51,9 +51,9 @@ public class AddTaskController extends AbstractController {
                 task.setUserId(user.getId());
 
                 if (file != null) {
-                    // todo проверять корректность сохранения
-                    FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()));
-                    task.setFilename(file.getFilename());
+                    if (FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()))) {
+                        task.setFilename(file.getFilename());
+                    }
                 }
 
                 AbstractDaoFactory.getFactory(ControllerConst.FACTORY)

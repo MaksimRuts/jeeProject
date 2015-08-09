@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 import java.io.File;
 
 public class ControllerConst {
-    // TODO прикрутить инициализацию с параметров сервлета
     public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
 //    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
