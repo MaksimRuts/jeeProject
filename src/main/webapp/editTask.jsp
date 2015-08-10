@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:set var="taskType" scope="session" value="${sessionScope.taskType}"/>
-<c:set var="user" scope="session" value="${sessionScope.user}"/>
 <jsp:useBean id="task" class="by.gsu.epamlab.model.beans.Task" scope="request"/>
 
 <html>

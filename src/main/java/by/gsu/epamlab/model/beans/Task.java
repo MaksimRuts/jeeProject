@@ -2,11 +2,12 @@ package by.gsu.epamlab.model.beans;
 
 import by.gsu.epamlab.model.exceptions.ValidationException;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Task {
+public class Task implements Serializable {
     public static final String DATE_PARSE_PATTERN = "yyyy-MM-dd";
 
     private int id;

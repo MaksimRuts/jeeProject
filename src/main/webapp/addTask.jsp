@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:set var="taskType" scope="session" value="${sessionScope.taskType}"/>
-<c:set var="user" scope="session" value="${sessionScope.user}"/>
-
 <html>
 <head>
     <title>Add task</title>
@@ -64,7 +61,7 @@
                 <div class="form-group">
                     <label for="taskFileId">File</label>
                     <input type="file" name="file" id="taskFileId"/>
-                </div>
+                </div>523
             </div>
             <div class="col-sm-8">
                 <div class="form-group">

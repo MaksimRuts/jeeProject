@@ -4,8 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="task" class="by.gsu.epamlab.model.beans.Task" scope="page"/>
-<c:set var="taskType" scope="session" value="${sessionScope.taskType}"/>
-<c:set var="user" scope="session" value="${sessionScope.user}"/>
 
 <html>
 <head>
