@@ -51,7 +51,10 @@ public class AddTaskController extends AbstractController {
                 task.setUserId(user.getId());
 
                 if (file != null) {
-                    if (FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()))) {
+                    String filepath = getServletContext().getInitParameter(ControllerConst.FILEPATH);
+                    filepath = FileManagement.concatPath(filepath, user.getLogin());
+                    if (FileManagement.saveFile(file, filepath)) {
+//                    if (FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()))) {
                         task.setFilename(file.getFilename());
                     }
                 }

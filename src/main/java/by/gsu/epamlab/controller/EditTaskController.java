@@ -54,8 +54,11 @@ public class EditTaskController extends AbstractController {
             task.setDateEnding(date);
 
             if (file != null) {
-                FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()));
-                task.setFilename(file.getFilename());
+                String filepath = getServletContext().getInitParameter(ControllerConst.FILEPATH);
+                filepath = FileManagement.concatPath(filepath, user.getLogin());
+                if (FileManagement.saveFile(file, filepath)) {
+                    task.setFilename(file.getFilename());
+                }
             }
 
             taskDao.update(task);

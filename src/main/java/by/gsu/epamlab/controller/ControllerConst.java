@@ -9,6 +9,7 @@ import java.io.File;
 public class ControllerConst {
     public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    public static final String FILEPATH = "filepath";
 //    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
 
     public static class Pages {
@@ -28,6 +29,7 @@ public class ControllerConst {
         public static final String ADD_TASK = "/addTask";
         public static final String EDIT_TASK = "/editTask";
         public static final String MANAGE_TASK = "/manageTask";
+        public static final String DOWNLOAD_FILE = "/download";
 
     }
 
@@ -63,6 +65,7 @@ public class ControllerConst {
         public static final String RESTORE = "restore";
         public static final String REMOVE_ALL = "removeAll";
         public static final String REMOVE_FILE = "removeFile";
+        public static final String DOWNLOAD_FILE = "downloadFile";
     }
 
     public static class Errors {
@@ -84,6 +87,7 @@ public class ControllerConst {
         public static String getAbsolutePath(ServletContext context) {
             return context.getRealPath(context.getContextPath()) + UPLOAD_RELATIVE_PATH;
         }
+        public static final String FILES_REPOSITORY = "uploaded";
     }
 }
 

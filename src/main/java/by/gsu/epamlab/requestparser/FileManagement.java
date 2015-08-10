@@ -2,15 +2,16 @@ package by.gsu.epamlab.requestparser;
 
 import java.io.*;
 
-public class FileManagement {
+public abstract class FileManagement {
     public static boolean saveFile(UploadedFile file, String filePath) {
-        StringBuilder path = new StringBuilder();
-        path.append(filePath).append(File.separator).append(file.getFilename());
-
+        String path = concatPath(filePath, file.getFilename());
         FileOutputStream fileOutputStream = null;
         BufferedWriter writer = null;
         try {
-            fileOutputStream = new FileOutputStream(new File(path.toString()));
+            if (!new File(filePath).exists()) {
+                new File(filePath).mkdir();
+            }
+            fileOutputStream = new FileOutputStream(new File(path));
             writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
             for (byte[] arr : file.getContent()) {
                 fileOutputStream.write(arr);
@@ -39,8 +40,16 @@ public class FileManagement {
     }
 
     public static void deleteFile(String fileName, String filePath) {
-        StringBuilder path = new StringBuilder();
-        path.append(filePath).append(File.separator).append(fileName);
-        new File(path.toString()).delete();
+        String path = concatPath(filePath, fileName);
+        new File(path).delete();
+    }
+
+    public static String concatPath(String... args) {
+        StringBuilder builder = new StringBuilder();
+        for (String s : args) {
+            builder.append(s).append(File.separator);
+        }
+        builder.delete(builder.lastIndexOf(File.separator), builder.length());
+        return builder.toString();
     }
 }

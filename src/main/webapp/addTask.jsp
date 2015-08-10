@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <label for="taskFileId">File</label>
                     <input type="file" name="file" id="taskFileId"/>
-                </div>523
+                </div>
             </div>
             <div class="col-sm-8">
                 <div class="form-group">
