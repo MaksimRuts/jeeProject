@@ -10,7 +10,7 @@
     </context-param>
 
     <listener>
-        <listener-class>by.gsu.epamlab.listeners.TaskTypeSessionListener</listener-class>
+        <listener-class>by.gsu.epamlab.listener.TaskTypeSessionListener</listener-class>
     </listener>
 
     <servlet>
