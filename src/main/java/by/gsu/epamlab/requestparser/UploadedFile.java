@@ -25,4 +25,8 @@ public class UploadedFile {
     public void setContent(List<byte[]> content) {
         this.content = content;
     }
+
+    public boolean isEmpty() {
+        return "".equals(filename);
+    }
 }

@@ -29,7 +29,7 @@ public class ActionTaskController extends AbstractController {
             } else if (ControllerConst.Actions.REMOVE_FILE.equals(action)) {
                 page = ControllerConst.Controllers.MANAGE_TASK;
             } else if (ControllerConst.Actions.DOWNLOAD_FILE.equals(action)) {
-                page = ControllerConst.Controllers.DOWNLOAD_FILE;
+                page = ControllerConst.Controllers.MANAGE_TASK;
             } else {
                 page = ControllerConst.Controllers.TASKS;
             }

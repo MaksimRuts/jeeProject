@@ -20,14 +20,30 @@ public class EditTaskController extends AbstractController {
         String action = getParameter(ControllerConst.Actions.ACTION);
 
         if (ControllerConst.Actions.REMOVE.equals(action)) {
-            jumpTo(ControllerConst.Controllers.MANAGE_TASK, req, resp);
+            ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
+                    .getTaskDao();
+            String taskId = getParameter(ControllerConst.Fields.TASK_ID);
+            User user = (User) req.getSession().getAttribute(ControllerConst.Fields.USER);
+            Task task = taskDao.read(user.getId(), Integer.parseInt(taskId));
+            task.setDeleted(true);
+            taskDao.update(task);
+            redirectTo(ControllerConst.Controllers.TASKS, req, resp);
+        } else if (ControllerConst.Actions.DOWNLOAD_FILE.equals(action)) {
+            ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
+                    .getTaskDao();
+            String taskId = getParameter(ControllerConst.Fields.TASK_ID);
+            User user = (User) req.getSession().getAttribute(ControllerConst.Fields.USER);
+            Task task = taskDao.read(user.getId(), Integer.parseInt(taskId));
+            downloadFile(user, task, resp);
         } else if (ControllerConst.Actions.REMOVE_FILE.equals(action)) {
             ITaskDao taskDao = AbstractDaoFactory.getFactory(ControllerConst.FACTORY)
                     .getTaskDao();
             String taskId = getParameter(ControllerConst.Fields.TASK_ID);
             User user = (User) req.getSession().getAttribute(ControllerConst.Fields.USER);
             Task task = taskDao.read(user.getId(), Integer.parseInt(taskId));
-            FileManagement.deleteFile(task.getFilename(), ControllerConst.FilePath.getAbsolutePath(getServletContext()));
+            String filepath = getServletContext().getInitParameter(ControllerConst.File.FILEPATH);
+            filepath = FileManagement.concatPath(filepath, user.getLogin());
+            FileManagement.deleteFile(task.getFilename(), filepath);
             task.setFilename("");
             taskDao.update(task);
             showTask(taskId, req, resp);
@@ -54,7 +70,7 @@ public class EditTaskController extends AbstractController {
             task.setDateEnding(date);
 
             if (file != null) {
-                String filepath = getServletContext().getInitParameter(ControllerConst.FILEPATH);
+                String filepath = getServletContext().getInitParameter(ControllerConst.File.FILEPATH);
                 filepath = FileManagement.concatPath(filepath, user.getLogin());
                 if (FileManagement.saveFile(file, filepath)) {
                     task.setFilename(file.getFilename());

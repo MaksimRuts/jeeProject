@@ -1,6 +1,7 @@
 package by.gsu.epamlab.filters;
 
 import by.gsu.epamlab.controller.ControllerConst;
+import by.gsu.epamlab.controller.TaskTypesWrapper;
 import by.gsu.epamlab.model.beans.User;
 
 import javax.servlet.*;
@@ -21,9 +22,13 @@ public class UserValidationFilter implements Filter {
         User user = (User) session.getAttribute(ControllerConst.Fields.USER);
         if (user == null) {
             servletRequest.getRequestDispatcher(ControllerConst.Controllers.LOGOUT).forward(servletRequest, servletResponse);
-            return;
+        } else {
+//            TaskTypesWrapper taskType = (TaskTypesWrapper) session.getAttribute(ControllerConst.Fields.TASK_TYPE);
+//            if (taskType == null) {
+//                session.setAttribute(ControllerConst.Fields.TASK_TYPE, TaskTypesWrapper.TODAY);
+//            }
+            filterChain.doFilter(servletRequest, servletResponse);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

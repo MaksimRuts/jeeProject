@@ -2,7 +2,6 @@ package by.gsu.epamlab.model.connection;
 
 public class DataBaseConstants {
     public static class DataBase {
-
         public static final String DRIVER_URI = "com.mysql.jdbc.Driver";
         public static final String DATABASE_URL = "jdbc:mysql://localhost/jee4";
         public static final String DATABASE_LOGIN = "root";

@@ -8,7 +8,11 @@
         <param-name>filepath</param-name>
         <param-value>d:\Projects\Java\EPAM_spring_2015\jeeProjectTasksUpload\</param-value>
     </context-param>
-    
+
+    <listener>
+        <listener-class>by.gsu.epamlab.listeners.TaskTypeSessionListener</listener-class>
+    </listener>
+
     <servlet>
         <display-name>Login</display-name>
         <servlet-name>Login</servlet-name>
@@ -86,16 +90,6 @@
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>/action</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <display-name>download</display-name>
-        <servlet-name>download</servlet-name>
-        <servlet-class>by.gsu.epamlab.controller.FileDownloadController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>download</servlet-name>
-        <url-pattern>/download</url-pattern>
     </servlet-mapping>
 
     <filter>

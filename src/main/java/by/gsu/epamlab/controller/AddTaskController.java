@@ -37,21 +37,19 @@ public class AddTaskController extends AbstractController {
                 User user = (User) session.getAttribute(ControllerConst.Fields.USER);
                 Task task = new Task();
 
-                if (taskType != null) {
-                    if (!taskType.isDateShow()) {
-                        task.setDateEnding(taskType.getDate());
-                    } else {
-                        validateField(date);
-                        task.setDateEnding(date);
-                    }
+                if (!taskType.isDateShow()) {
+                    task.setDateEnding(taskType.getDate());
+                } else {
+                    validateField(date);
+                    task.setDateEnding(date);
                 }
 
                 task.setName(name);
                 task.setDescription(description);
                 task.setUserId(user.getId());
 
-                if (file != null) {
-                    String filepath = getServletContext().getInitParameter(ControllerConst.FILEPATH);
+                if (!file.isEmpty()) {
+                    String filepath = getServletContext().getInitParameter(ControllerConst.File.FILEPATH);
                     filepath = FileManagement.concatPath(filepath, user.getLogin());
                     if (FileManagement.saveFile(file, filepath)) {
 //                    if (FileManagement.saveFile(file, ControllerConst.FilePath.getAbsolutePath(getServletContext()))) {

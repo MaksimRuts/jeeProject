@@ -29,10 +29,14 @@ public class ManageTaskController extends AbstractController {
         } else if (ControllerConst.Actions.REMOVE_FILE.equals(action)) {
             int taskId = Integer.parseInt(req.getParameter(ControllerConst.Fields.TASK_ID));
             Task task = taskDao.read(user.getId(), taskId);
-            String path = ControllerConst.FilePath.getAbsolutePath(getServletContext());
+            String path = FileManagement.concatPath(getServletContext().getInitParameter(ControllerConst.File.FILEPATH), user.getLogin());
             FileManagement.deleteFile(task.getFilename(), path);
             task.setFilename("");
             taskDao.update(task);
+        } else if (ControllerConst.Actions.DOWNLOAD_FILE.equals(action)) {
+            String taskId = req.getParameter(ControllerConst.Fields.TASK_ID);
+            Task task = taskDao.read(user.getId(), Integer.parseInt(taskId));
+            downloadFile(user, task, resp);
         } else {
             TaskTypesWrapper taskType = (TaskTypesWrapper) req.getSession().getAttribute(ControllerConst.Fields.TASK_TYPE);
             String[] tasksId = req.getParameterValues(ControllerConst.Fields.SELECT);

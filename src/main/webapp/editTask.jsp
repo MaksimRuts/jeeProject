@@ -63,7 +63,8 @@
                     <label for="taskFileId">File: </label>
                     <c:choose>
                         <c:when test="${not empty task.filename}">
-                            <a class="btn btn-link" href="<%= ControllerConst.Fields.FILE_PATH %><jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>
+                            <a class="btn btn-link" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.DOWNLOAD_FILE %>', '<jsp:getProperty name="task" property="id"/>')"><jsp:getProperty name="task" property="filename"/></a>
+                            <%--<a class="btn btn-link" href="<%= ControllerConst.Fields.FILE_PATH %><jsp:getProperty name="task" property="filename"/>"><jsp:getProperty name="task" property="filename"/></a>--%>
                             <a class="btn btn-sm btn-info" href="JavaScript:sendFormWithTaskId('<%= ControllerConst.Actions.REMOVE_FILE %>', '<jsp:getProperty name="task" property="id"/>')">Delete</a>
                         </c:when>
                         <c:otherwise>

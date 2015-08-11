@@ -4,13 +4,11 @@ import by.gsu.epamlab.model.factories.AbstractDaoFactory;
 import by.gsu.epamlab.model.factories.DataBaseDaoFactory;
 
 import javax.servlet.ServletContext;
-import java.io.File;
 
 public class ControllerConst {
     public static final Class<? extends AbstractDaoFactory> FACTORY = DataBaseDaoFactory.class;
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
-    public static final String FILEPATH = "filepath";
-//    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
+    //    public static final Class<? extends AbstractDaoFactory> FACTORY = MemoryDaoFactory.class;
 
     public static class Pages {
         public static final String ERROR = "/error.jsp";
@@ -49,7 +47,7 @@ public class ControllerConst {
         public static final String BACK_PAGE = "backPage";
         public static final String TASK_ID = "taskId";
         public static final String FILE = "file";
-        public static final String FILE_PATH = '/' + FilePath.UPLOAD_RELATIVE_PATH + '/';
+//        public static final String FILE_PATH = '/' + File.UPLOAD_RELATIVE_PATH + '/';
     }
 
     public static class Actions {
@@ -81,13 +79,12 @@ public class ControllerConst {
         public static final String REGISTRATION_SUCCESSFULLY_COMPLETED = "Registration successfully completed";
     }
 
-    public static class FilePath {
-        public static final String UPLOAD_RELATIVE_PATH = "uploaded";
+    public static class File {
 
-        public static String getAbsolutePath(ServletContext context) {
-            return context.getRealPath(context.getContextPath()) + UPLOAD_RELATIVE_PATH;
-        }
-        public static final String FILES_REPOSITORY = "uploaded";
+        public static final String FILEPATH = "filepath";
+        public static final String APPLICATION_OCTET_STREAM = "APPLICATION/OCTET-STREAM";
+        public static final String CONTENT_DISPOSITION = "Content-Disposition";
+        public static final String ATTACHMENT_FILENAME = "attachment; filename=\"";
     }
 }
 

@@ -22,9 +22,9 @@ public class TasksController extends AbstractController {
         TaskTypesWrapper taskType = (TaskTypesWrapper) session.getAttribute(ControllerConst.Fields.TASK_TYPE);
 
         try {
-            if (taskType == null) {
-                taskType = TaskTypesWrapper.TODAY;
-            }
+//            if (taskType == null) {
+//                taskType = TaskTypesWrapper.TODAY;
+//            }
 
             if (action != null) {
                 try {

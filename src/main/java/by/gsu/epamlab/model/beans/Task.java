@@ -17,7 +17,7 @@ public class Task implements Serializable {
     private boolean isCompleted;
     private boolean isDeleted;
     private int userId;
-    private String filename;
+    private String filename = "";
 
     public Task() {
         setCompleted(false);
